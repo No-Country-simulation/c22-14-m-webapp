@@ -4,7 +4,6 @@
 
 -- Dumped from database version 17.1
 -- Dumped by pg_dump version 17.1
-
 -- Started on 2024-11-18 11:03:36
 
 SET statement_timeout = 0;
