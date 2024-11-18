@@ -35,6 +35,25 @@ erDiagram
         datetime created_at
         datetime updated_at
     }
+    doctors{
+        init id Pk
+        int user_id FK
+        string specialization
+        string license_number
+        string phone
+        string link_video
+        datetime created_at
+        datetime updated_at
+    }
+    patients{
+        init id Pk
+        int user_id FK
+        datetime date_of_birth
+        string gender
+        string phone
+        datetime created_at
+        datetime updated_at        
+    }            
     appointments {
         int id PK
         int patient_id FK
@@ -55,20 +74,15 @@ erDiagram
         datetime created_at
         datetime updated_at
     }
-    video_calls {
-        int id PK
-        int appointment_id FK
-        datetime call_start_time
-        datetime call_end_time
-        string call_url
-        string status
-        datetime created_at
-        datetime updated_at
-    }
     
-    users ||--o| appointments : has
-    users ||--o| medical_records : has
-    appointments ||--o| video_calls : has
+
+    
+    users ||--o| doctor : has
+    users ||--o| patient : has
+    doctors ||--o| appointments : has
+    patients ||--o| appointments : has
+    doctors ||--o| medical_records : has
+    patients ||--o| medical_records : has
 
 ```
 
