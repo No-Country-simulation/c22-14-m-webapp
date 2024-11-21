@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../../config/db/index.js'; // Asumimos que tenemos un archivo index.js en la carpeta models que inicializa Sequelize.
+import { sequelize } from '../../config/db/index.js';
 
 const User = sequelize.define('user', {
     id: {

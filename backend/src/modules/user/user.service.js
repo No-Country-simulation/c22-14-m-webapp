@@ -52,7 +52,8 @@ class UserService {
         }
 
         const { password: _, ...userWithoutPassword } = user.toJSON();
-        return userWithoutPassword;
+        const token = await tokenService.createToken(userWithoutPassword.id);
+        return { token };
     }
 
     async deleteUser(id) {
