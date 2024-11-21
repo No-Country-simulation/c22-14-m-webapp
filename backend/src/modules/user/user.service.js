@@ -6,6 +6,22 @@ class UserService {
         this.userRepository = userRepository;
     }
 
+    async findAllUsers() {
+        const users = await this.userRepository.findAll();
+        if(users.length === 0) {
+          throw new Error('No hay usuarios registrados');
+        }
+        return users;
+    }
+  
+    async getUserById(id) {
+        const user = await this.userRepository.findById(id);
+        if (!user) {
+            throw new Error('Usuario no encontrado');
+        }
+        return user;
+    }
+
     async registerUser(userData) {
         const { password, email } = userData;
 
