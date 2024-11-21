@@ -23,6 +23,22 @@ class UserService {
 
         return { token };
     }
+
+    async loginUser(email, password) {
+        const user = await this.userRepository.findByEmail(email);
+        if (!user) {
+            throw new Error('Credenciales inválidas');
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            throw new Error('Credenciales inválidas');
+        }
+
+        const { password: _, ...userWithoutPassword } = user.toJSON();
+        const token = await tokenService.createToken(userWithoutPassword.id);
+        return { token };
+    }
 }
 
 export { UserService };
