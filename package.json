@@ -1,0 +1,20 @@
+{
+  "name": "c22-14-m-webapp",
+  "version": "1.0.0",
+  "description": "## ℹ️ General Info",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run start --workspaces",
+    "dev:frontend": "npm --workspace frontend run dev",
+    "dev:backend": "npm --workspace backend run dev",
+    "build": "npm run build --workspaces",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

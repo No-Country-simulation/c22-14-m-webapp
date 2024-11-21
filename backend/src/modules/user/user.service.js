@@ -1,24 +1,28 @@
+import bcrypt from 'bcrypt';
+import { tokenService } from '../../common/services/services.js';
+
 class UserService {
     constructor(userRepository) {
-      this.userRepository = userRepository;
+        this.userRepository = userRepository;
     }
-  
-    async findUserById(id) {
-      const user = await this.userRepository.findById(id);
-      if (!user) {
-        throw new Error('User not found');
-      }
-      return user;
+
+    async registerUser(userData) {
+        const { password, email } = userData;
+
+        const existingUser = await this.userRepository.findByEmail(email);
+        if (existingUser) {
+            throw new Error('El email ya está registrado');
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = await this.userRepository.create({
+            ...userData,
+            password: hashedPassword,
+        });
+        const token = await tokenService.createToken(newUser.id);
+
+        return { token };
     }
-  
-    async createUser(userData) {
-      const existingUser = await this.userRepository.findByEmail(userData.email);
-      if (existingUser) {
-        throw new Error('Email already in use');
-      }
-      return await this.userRepository.create(userData);
-    }
-  }
-  
-  module.exports = UserService;
-  
+}
+
+export { UserService };

@@ -1,20 +1,15 @@
 class UserRepository {
-    constructor(userModel) {
+  constructor(userModel) {
       this.userModel = userModel;
-    }
-  
-    async findById(id) {
-      return await this.userModel.findByPk(id);
-    }
-  
-    async findByEmail(email) {
-      return await this.userModel.findOne({ where: { email } });
-    }
-  
-    async create(userData) {
-      return await this.userModel.create(userData);
-    }
   }
-  
-  module.exports = UserRepository;
-  
+
+  async findByEmail(email) {
+      return await this.userModel.findOne({ where: { email } });
+  }
+
+  async create(userData) {
+      return await this.userModel.create(userData);
+  }
+}
+
+export { UserRepository };

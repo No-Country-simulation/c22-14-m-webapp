@@ -1,11 +1,11 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../../models'; // Asumimos que tenemos un archivo index.js en la carpeta models que inicializa Sequelize.
+import { sequelize } from '../../config/db/index.js';
 
-const User = sequelize.define('User', {
+const User = sequelize.define('user', {
     id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUIDV1,
         primaryKey: true,
-        autoIncrement: true,
+        defaultValue: DataTypes.UUIDV1,
     },
     fullName: {
         type: DataTypes.STRING,
