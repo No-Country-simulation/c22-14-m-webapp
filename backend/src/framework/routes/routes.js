@@ -1,8 +1,10 @@
 import { Router } from 'express';
 import userRoutes from './user-routes/user-routes';
+import patientsRoutes from './patient-routes/patient-routes';
 
-const router = Router();
+const apiRoutes = Router();
 
-router.use(userRoutes);
+apiRoutes.use(userRoutes);
+apiRoutes.use(patientsRoutes);
 
-export default router;
+export default apiRoutes;

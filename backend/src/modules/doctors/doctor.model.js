@@ -1,11 +1,11 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/db/index.js';
 
-const User = sequelize.define('user', {
+const Doctor = sequelize.define('Doctor', {
     id: {
-        type: DataTypes.UUIDV1,
+        type: DataTypes.INTEGER,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV1,
+        autoIncrement: true,
     },
     fullName: {
         type: DataTypes.STRING,
@@ -20,8 +20,6 @@ const User = sequelize.define('user', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-}, {
-    timestamps: true,
 });
 
-export { User };
+export { Doctor };
