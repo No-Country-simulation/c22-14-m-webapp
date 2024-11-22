@@ -22,4 +22,5 @@ const Doctor = sequelize.define('Doctor', {
     },
 });
 
+
 export { Doctor };

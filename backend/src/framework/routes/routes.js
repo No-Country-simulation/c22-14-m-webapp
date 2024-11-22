@@ -7,4 +7,5 @@ const apiRoutes = Router();
 apiRoutes.use(userRoutes);
 apiRoutes.use(patientsRoutes);
 
+
 export default apiRoutes;
