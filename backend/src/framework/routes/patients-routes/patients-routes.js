@@ -4,6 +4,7 @@ import { PatientService } from '../../services/patient.service.js';
 import { PatientRepository } from '../../repositories/patient.repository.js';
 import { Patient } from '../../models/patient.model.js';
 
+
 const router = Router();
 const patientRepository = new PatientRepository(Patient);
 const patientService = new PatientService(patientRepository);

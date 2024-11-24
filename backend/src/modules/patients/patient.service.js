@@ -14,6 +14,7 @@ class PatientService {
         }
         return patient;
     }
+    
 
     async createPatient(patientData) {
         return await this.patientRepository.create(patientData);
