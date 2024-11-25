@@ -22,6 +22,7 @@ class PatientController {
             res.status(500).json({ message: error.message });
         }
     }
+    
 
     async createPatient(req, res) {
         try {

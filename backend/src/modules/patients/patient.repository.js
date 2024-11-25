@@ -16,4 +16,5 @@ class PatientRepository {
     }
 }
 
+
 export { PatientRepository };

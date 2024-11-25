@@ -21,6 +21,7 @@ sequelize.sync({ force: false })
         app.listen(config.port , () => {
             console.log(`Servidor escuchando en http://localhost:${process.env.PORT || 3000}`);
         });
+
     }).catch((error) => {
         console.error('Error al conectar a la base de datos:', error);
 });
