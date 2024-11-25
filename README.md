@@ -29,7 +29,6 @@ erDiagram
         string first_name
         string last_name
         string email
-        string phone
         string password_hash
         string role
         datetime created_at
@@ -90,9 +89,8 @@ erDiagram
 
 1. Install packages: **`npm install`**
 2. Fill ENVs
-3. Run migrations: **`npm run migrate:dev -w backend`**
-4. Run backend: **`npm run start:dev -w backend`**
-5. Run fronend: **`npm run start:dev -w frontend`**
+3. Run backend: **`npm run start:dev -w backend`**
+4. Run fronend: **`npm run start:dev -w frontend`**
 
 ## 🏗️ Architecture
 
