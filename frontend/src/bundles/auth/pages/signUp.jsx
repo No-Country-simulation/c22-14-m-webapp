@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Box } from '../../common/components/components';
 import { useNavigate } from 'react-router-dom';
 import { SIGN_UP } from '../../../settings';
@@ -14,11 +14,22 @@ const SignUp = () => {
         email: "",
         password: "",
     });
-
     const [errorMessage, setErrorMessage] = useState("");
+
+    useEffect(() => {
+        const savedFormData = localStorage.getItem('signUpFormData');
+        if (savedFormData) {
+            setFormData(JSON.parse(savedFormData));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('signUpFormData', JSON.stringify(formData));
+    }, [formData]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prevData) => ({
+        setFormData(prevData => ({
             ...prevData,
             [name]: value,
         }));
@@ -46,10 +57,11 @@ const SignUp = () => {
                 throw new Error("Error en el registro. Por favor intenta nuevamente.");
             }
 
-            // Manejar la respuesta del servidor
             const data = await response.json();
             console.log("Registro exitoso:", data);
-            navigate('/');
+
+            localStorage.removeItem('signUpFormData');
+            navigate('/sign-up');
         } catch (error) {
             console.error("Error:", error);
             setErrorMessage(error.message);
@@ -60,7 +72,7 @@ const SignUp = () => {
             <Box
                 component="form"
                 onSubmit={handleSubmit}
-                sx={{ mt: 4, mx: "auto", maxWidth: '50vh', p: 3, boxShadow: 2}}
+                sx={{ mt: 4, mx: "auto", maxWidth: '50vh', p: 3, boxShadow: 2 }}
             >
                 <Typography variant="h5" align="center">
                     Regístrate en Telemedicina
