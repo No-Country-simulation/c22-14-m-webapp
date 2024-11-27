@@ -1,4 +1,4 @@
-import { AppointmentRepository } from "./appointment.repository";
+import { AppointmentRepository } from "./appointment.repository.js";
 
 /**
  * Service component of the Appointment Entity

@@ -1,4 +1,4 @@
-import { AppointmentService } from "./appointment.service";
+import { AppointmentService } from "./appointment.service.js";
 
 class AppointmentController {
     /**

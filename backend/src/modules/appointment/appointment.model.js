@@ -1,24 +1,23 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../../config/db/index";
-import { Doctor } from "../doctors/doctor.model";
-import { Patient } from "../patients/patient.model";
+import { sequelize } from "../../config/db/index.js";
+import { Doctor } from "../doctors/doctor.model.js";
+import { Patient } from "../patients/patient.model.js";
 
 /**
  * The medical appointment model
  */
 const Appointment = sequelize.define('Appointment', {
     id: {
-        type: DataTypes.UUIDV1,
+        type: DataTypes.UUID,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV1,
         allowNull: false
     },
     patient_id: {
-        type: DataTypes.UUIDV1,
+        type: DataTypes.UUID,
         allowNull: false
     },
     doctor_id: {
-        type: DataTypes.UUIDV1,
+        type: DataTypes.UUID,
         allowNull: false
     },
     appointment_date: {
