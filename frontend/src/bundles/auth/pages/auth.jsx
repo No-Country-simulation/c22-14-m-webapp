@@ -37,6 +37,11 @@ const Auth = () => {
       setErrorMessage(error.message);
     }
   };
+
+  if (isLoggedIn) {
+    return <Navigate to="/example-patient-portal" />;
+  }
+
   return (
     <>
         <Button variant="contained">Sign-in or sign-up</Button>
