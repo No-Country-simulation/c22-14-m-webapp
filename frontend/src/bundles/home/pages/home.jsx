@@ -1,4 +1,5 @@
 import { Link, Typography } from "../../common/components/components"
+import { AppRoute } from '../../common/constants/constants'
 
 const Home = () => {
   return (
@@ -9,7 +10,7 @@ const Home = () => {
         <Typography variant="h4">Telemedicina App</Typography>
         <Typography variant="h5">Telemedicina App</Typography>
         <Typography variant="h6">Telemedicina App</Typography>
-        <Link underline="none" href="/sign-in">Register</Link>
+        <Link underline="none" href={AppRoute.SIGN_UP}>Registrarse</Link>
     </>
   )
 }
