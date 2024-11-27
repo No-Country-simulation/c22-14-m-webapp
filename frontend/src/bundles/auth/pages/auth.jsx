@@ -43,11 +43,45 @@ const Auth = () => {
   }
 
   return (
-    <>
-        <Button variant="contained">Sign-in or sign-up</Button>
-        <Link underline="none" href="/">Back</Link>
-    </>
-  )
+    <Container sx={CONTAINER_AUTH_STYLES} >
+      <Box sx={TYPOGRAPHY_LOGIN_STYLES}>
+        <Typography variant="h4" component="h1">
+          Iniciar Sesión
+        </Typography>
+        {errorMessage && (
+          <Typography variant="body1" color="error">
+            {errorMessage}
+          </Typography>
+        )}
+      </Box>
+      <Box sx={TEXTFIELD_LOGIN_STYLES}>
+        <TextField
+          label="Correo"
+          type="email"
+          value={email}
+          size='small'
+          InputLabelProps={{ shrink: false }}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          label="************"
+          type="password"
+          value={password}
+          size='small'
+          InputLabelProps={{ shrink: false }}
+
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button sx={BUTTON_LOGIN_STYLES} variant="contained" size='small' onClick={handleLogin}>
+          Ingresar
+        </Button>
+      </Box>
+      <Box sx={BOX_LOGIN_STYLES}>
+        <Typography> No tienes cuenta? </Typography>
+        <Link sx={LINK_LOGIN_STYLES} underline='none' href="/sign-up"> Registrarse </Link>
+      </Box>
+    </Container >
+  );
 }
 
 export { Auth }
