@@ -6,24 +6,25 @@ const Patient = sequelize.define('Patient', {
     id: {
         type: DataTypes.UUID,
         primaryKey: true,
+        foreignKey: true,
         defaultValue: DataTypes.UUIDV4,
     },
-    firstName: {
+    address: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    lastName: {
+    dni:{
         type: DataTypes.STRING,
         allowNull: false,
     },
-    age: {
-        type: DataTypes.INTEGER,
+    brirtDate: {
+        type: DataTypes.DATE,
         allowNull: false,
     },
-    medicalHistory: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-    },
+    phoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }
 });
 
 
