@@ -1,4 +1,4 @@
-//integracion del sistema
+//integracion del sistema para usuario
 
 import { User } from './user.model.js';
 import { UserRepository } from './user.repository.js';
