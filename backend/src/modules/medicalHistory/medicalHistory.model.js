@@ -2,13 +2,17 @@ import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/db/index.js';
 import { Appoiment } from '../appoiments/appoiment.model.js';
 
-const MedicalHistory = sequelize.define( 'MedicationHistory',{
+
+//solo crear un post con los datos de la cita.
+
+
+const MedicalHistory = sequelize.define( 'MedicalHistory',{
     id: {
         type: DataTypes.UUID,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
     },
-    appoimment_id: {
+    appoiment_id: {
         type: DataTypes.UUID,
         foreignKey: true,
     },
@@ -26,7 +30,7 @@ const MedicalHistory = sequelize.define( 'MedicationHistory',{
     }
 })
 
-MedicalHistory.belongsTo(Appoiment, { foreignKey: 'appoimmentId'});
+MedicalHistory.belongsTo(Appoiment, { foreignKey: 'appoimentId'});
 
 
-export { MedicationHistory };
+export { MedicalHistory };
