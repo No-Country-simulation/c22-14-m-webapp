@@ -8,6 +8,13 @@ const Auth = () => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setIsLoggedIn(true);
+    }
+  }, []);
   return (
     <>
         <Button variant="contained">Sign-in or sign-up</Button>
