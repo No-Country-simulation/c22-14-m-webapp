@@ -15,6 +15,28 @@ const Auth = () => {
       setIsLoggedIn(true);
     }
   }, []);
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch(SIGN_IN, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Credenciales inválidas');
+      }
+
+      const data = await response.json();
+      localStorage.setItem('user', JSON.stringify(data.user));
+      setIsLoggedIn(true);
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
+  };
   return (
     <>
         <Button variant="contained">Sign-in or sign-up</Button>
