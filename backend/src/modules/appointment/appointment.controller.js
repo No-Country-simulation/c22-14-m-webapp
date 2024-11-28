@@ -5,7 +5,7 @@ class AppointmentController {
      * 
      * @param { AppointmentService } appointmentService 
      */
-    consturctor(appointmentService) {
+    constructor(appointmentService) {
         this.appointmentService = appointmentService;
     }
 
