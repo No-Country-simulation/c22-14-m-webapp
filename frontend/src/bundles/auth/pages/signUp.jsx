@@ -1,7 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button, Typography, Box } from '../../common/components/components';
+import { TextField, Button, Typography, Box, Container } from '../../common/components/components';
 import { useNavigate } from 'react-router-dom';
 import { SIGN_UP } from '../../../settings';
+
+const CONTAINER_REGISTER_STYLES = { "&": { padding: '0 3%' }, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '35%', background: '#ffffff', boxShadow: '5px 5px 15px rgba(0, 0, 0, 0.3)', borderRadius: '4%' }
+const BOX_REGISTER_STYLES = { display: 'flex', flexDirection: 'column', alignItems: 'center', width: '80%', paddingBottom: '18%' }
+const TYPOGRAPHY_REGISTER_STYLES = {
+    display: 'flex', flexDirection: 'column', justifyContent: 'center',
+    paddingTop: '20%', paddingBottom: '10%', color: '#bdbdbd', '& .MuiTypography-root': {
+        fontSize: '36px'
+    },
+}
+const TEXTFIELD_REGISTER_STYLES = {
+    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '35px', width: '100%', paddingBottom: '23%', '& .MuiTextField-root': { width: '100%', '& .MuiOutlinedInput-root': { boxShadow: '0px 5px 20px #00000074' } }, "& .MuiOutlinedInput-root": {
+        "& fieldset": { borderColor: "#E0E3E7" }, "&:hover fieldset": { borderColor: "#E0E3E7" }
+    }
+}
+const BUTTON_REGISTER_STYLES = { display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '50%' }
 
 const SignUp = () => {
     const navigate = useNavigate();
@@ -68,106 +83,90 @@ const SignUp = () => {
         }
     };
     return (
-        <>
-            <Box
+        <Container sx={CONTAINER_REGISTER_STYLES}>
+            <Box sx={BOX_REGISTER_STYLES}
                 component="form"
-                onSubmit={handleSubmit}
-                sx={{ mt: 4, mx: "auto", maxWidth: '50vh', p: 3, boxShadow: 2 }}
-            >
-                <Typography variant="h5" align="center">
-                    Regístrate en Telemedicina
-                </Typography>
+                onSubmit={handleSubmit}>
+                <Box sx={TEXTFIELD_REGISTER_STYLES}>
+                    <Box sx={TYPOGRAPHY_REGISTER_STYLES}>
+                        <Typography variant="h4" component="h1">
+                            Regístrate en VitaMind
+                        </Typography>
 
-                {errorMessage && (
-                    <Typography color="error" align="center" sx={{ mb: 2 }}>
-                        {errorMessage}
-                    </Typography>
-                )}
+                        {errorMessage && (
+                            <Typography variant="body1" color="error">
+                                {errorMessage}
+                            </Typography>
+                        )}
+                    </Box>
 
-                <TextField
-                    label="Nombre"
-                    variant="outlined"
-                    fullWidth
-                    margin="normal"
-                    size="small"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    required
-                />
-                <TextField
-                    label="Apellido"
-                    variant="outlined"
-                    fullWidth
-                    margin="normal"
-                    size="small"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    required
-                />
-                <TextField
-                    label="Fecha de nacimiento"
-                    variant="outlined"
-                    type="date"
-                    fullWidth
-                    margin="normal"
-                    size="small"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    name="birthDate"
-                    value={formData.birthDate}
-                    onChange={handleChange}
-                    required
-                />
-                <TextField
-                    label="DNI"
-                    variant="outlined"
-                    fullWidth
-                    margin="normal"
-                    size="small"
-                    name="dni"
-                    value={formData.dni}
-                    onChange={handleChange}
-                />
-                <TextField
-                    label="Número de teléfono"
-                    variant="outlined"
-                    fullWidth
-                    margin="normal"
-                    size="small"
-                    name="phoneNumber"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                />
-                <TextField
-                    label="Correo electrónico"
-                    variant="outlined"
-                    type="email"
-                    fullWidth
-                    margin="normal"
-                    size="small"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                />
-                <TextField
-                    label="Contraseña"
-                    variant="outlined"
-                    type="password"
-                    fullWidth
-                    margin="normal"
-                    size="small"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                />
-                <Button type="submit" variant="contained" color="primary" fullWidth size="small"> Regístrate </Button>
+                    <TextField
+                        label="Nombre"
+                        type='text'
+                        name="firstName"
+                        size="small"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        required
+                    />
+                    <TextField
+                        label="Apellido"
+                        type='text'
+                        name="lastName"
+                        size="small"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        required
+                    />
+                    <TextField
+                        label="Fecha de nacimiento"
+                        type="text"
+                        name="birthDate"
+                        size="small"
+                        value={formData.birthDate}
+                        onChange={handleChange}
+                        required
+                    />
+                    <TextField
+                        label="DNI"
+                        type="text"
+                        name="dni"
+                        size="small"
+                        value={formData.dni}
+                        onChange={handleChange}
+                        required
+                    />
+                    <TextField
+                        label="Número de teléfono"
+                        type="tel"
+                        name="phoneNumber"
+                        size="small"
+                        value={formData.phoneNumber}
+                        onChange={handleChange}
+                        required
+                    />
+                    <TextField
+                        label="Correo electrónico"
+                        type="email"
+                        name="email"
+                        size="small"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                    <TextField
+                        label="************"
+                        type="password"
+                        name="password"
+                        size="small"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
+                </Box>
+                <Button sx={BUTTON_REGISTER_STYLES} type="submit" variant="contained" size="large"> Regístrate </Button>
             </Box>
-        </>
+        </Container>
     )
 }
 
