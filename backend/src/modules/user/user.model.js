@@ -3,11 +3,15 @@ import { sequelize } from '../../config/db/index.js';
 
 const User = sequelize.define('user', {
     id: {
-        type: DataTypes.UUIDV1,
+        type: DataTypes.UUID,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV1,
     },
-    fullName: {
+    firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    lastName: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -15,6 +19,11 @@ const User = sequelize.define('user', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+    },
+    role: {
+        type: DataTypes.ENUM('doctor', 'patient', 'admin'),
+        allowNull: false,
+        defaultValue: 'patient',
     },
     password: {
         type: DataTypes.STRING,

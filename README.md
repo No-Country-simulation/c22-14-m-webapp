@@ -24,64 +24,71 @@ Telemedicine application enabling patients to schedule virtual appointments, doc
 
 ```mermaid
 erDiagram
-    users {
+    USERS {
         int id PK
-        string first_name
-        string last_name
+        string firtName
+        string lastName
         string email
-        string password_hash
-        string role
-        datetime created_at
-        datetime updated_at
+        string password
+        int role_id FK
+        datetime createdAt
+        datetime updatedAt
     }
-    doctors{
-        init id Pk
-        int user_id FK
-        string specialization
+    ROLES {
+        int id PK
+        string name
+        datetime createdAt
+        datetime updatedAt
+    }
+    DOCTORS {
+        int id PK, FK
+        string specialty
         string license_number
-        string phone
-        string link_video
-        datetime created_at
-        datetime updated_at
+        datetime createdAt
+        datetime updatedAt
     }
-    patients{
-        init id Pk
-        int user_id FK
-        datetime date_of_birth
-        string gender
-        string phone
-        datetime created_at
-        datetime updated_at        
-    }            
-    appointments {
+    PATIENTS {
+        int id PK, FK
+        string address
+        string dni
+        date birthdate
+        string phoneNumber
+        datetime createdAt
+        datetime updatedAt
+    }
+    ADMINS {
+        int id PK, FK
+        string department
+        string access_level
+        datetime createdAt
+        datetime updatedAt
+    }
+    APPOINTMENTS {
         int id PK
-        int patient_id FK
         int doctor_id FK
-        datetime appointment_date
+        int patient_id FK
+        datetime date
         string status
-        datetime created_at
-        datetime updated_at
+        datetime createdAt
+        datetime updatedAt
     }
-    medical_records {
+    MEDICAL_RECORDS {
         int id PK
-        int patient_id FK
-        int doctor_id FK
-        datetime record_date
+        int appointment_id FK
+        string consultation
         string diagnosis
-        string prescriptions
-        string notes
-        datetime created_at
-        datetime updated_at
+        string treatment
+        datetime createdAt
+        datetime updatedAt
     }
-    
 
-    
-    users ||--o| doctor : has
-    users ||--o| patient : has
-    doctors ||--o| appointments : has
-    patients ||--o| appointments : has
-    doctors ||--o| medical_records : has
-    patients ||--o| medical_records : has
+    USERS ||--o| ROLES : "has role"
+    USERS ||--o| DOCTORS : "is doctor"
+    USERS ||--o| PATIENTS : "is patient"
+    USERS ||--o| ADMINS : "is admin"
+    DOCTORS ||--o{ APPOINTMENTS : "has appointments"
+    PATIENTS ||--o{ APPOINTMENTS : "has appointments"
+    APPOINTMENTS ||--o| MEDICAL_RECORDS : "has medical record"
 
 ```
 
@@ -89,8 +96,8 @@ erDiagram
 
 1. Install packages: **`npm install`**
 2. Fill ENVs
-3. Run backend: **`npm run start:dev -w backend`**
-4. Run fronend: **`npm run start:dev -w frontend`**
+3. Run backend: **`npm run dev`**
+4. Run fronend: **`npm run dev`**
 
 ## 🏗️ Architecture
 
