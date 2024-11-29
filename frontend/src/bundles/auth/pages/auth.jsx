@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Link, Container, TextField, Typography, Box } from '../../common/components/components';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { SIGN_IN } from '../../../settings';
 
-const CONTAINER_AUTH_STYLES = { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '50%', background: '#ffffff', boxShadow: '5px 5px 15px rgba(0, 0, 0, 0.3)', borderRadius: '4%' }
+const CONTAINER_LOGIN_STYLES = { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '30%', background: '#ffffff', boxShadow: '5px 5px 15px rgba(0, 0, 0, 0.3)', borderRadius: '4%' }
 const TYPOGRAPHY_LOGIN_STYLES = {
   paddingTop: '15%', color: '#bdbdbd', '& .MuiTypography-root': {
     fontSize: '40px',
@@ -23,10 +23,11 @@ const Auth = () => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
       setIsLoggedIn(true);
     }
   }, []);
@@ -46,7 +47,8 @@ const Auth = () => {
       }
 
       const data = await response.json();
-      localStorage.setItem('user', JSON.stringify(data.user));
+      const token = data.token;
+      localStorage.setItem('token', token);
       setIsLoggedIn(true);
     } catch (error) {
       setErrorMessage(error.message);
@@ -54,11 +56,12 @@ const Auth = () => {
   };
 
   if (isLoggedIn) {
-    return <Navigate to="/example-patient-portal" />;
+    navigate('/', { replace: true });
+    return null;
   }
 
   return (
-    <Container sx={CONTAINER_AUTH_STYLES} >
+    <Container sx={CONTAINER_LOGIN_STYLES} >
       <Box sx={TYPOGRAPHY_LOGIN_STYLES}>
         <Typography variant="h4" component="h1">
           Iniciar Sesión
