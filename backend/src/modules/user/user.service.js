@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
 import { tokenService } from '../../common/services/services.js';
+import { doctorRepository } from '../doctor/doctor.js';
+import { patientRepository } from '../patient/patient.js';
 
 class UserService {
     constructor(userRepository) {
@@ -7,7 +9,7 @@ class UserService {
     }
 
     async registerUser(userData) {
-        const { password, email } = userData;
+        const { firstName, lastName, role, password, email, ...additionalInfo } = userData;
 
         const existingUser = await this.userRepository.findByEmail(email);
         if (existingUser) {
@@ -16,9 +18,28 @@ class UserService {
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await this.userRepository.create({
-            ...userData,
+            firstName,
+            lastName,
+            role,
+            email,
             password: hashedPassword,
         });
+
+        if(role === 'doctor') {
+            const newDoctor = await doctorRepository.create({
+                ...additionalInfo
+            });
+            console.log("doctor creado", newDoctor)
+        } else if ( role === 'patient') {
+            console.log(additionalInfo)
+            const newPatient = await patientRepository.create({
+                ...additionalInfo
+            });
+            console.log("paciente creado", newPatient)
+        } else if (role === 'admin') {
+            console.log("hello admin")
+        }
+        
         const token = await tokenService.createToken(newUser.id);
 
         return { token };
