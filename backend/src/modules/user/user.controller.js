@@ -2,7 +2,6 @@ class UserController {
   constructor(userService) {
       this.userService = userService;
   }
-
     async register(req, res) {
         try {
             const newUser = await this.userService.registerUser(req.body);
