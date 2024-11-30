@@ -12,4 +12,4 @@ const config = {
     jwt_expiration_time: process.env.JWT_EXPIRATION_TIME,
 };
 
-export default config;
+export { config };
