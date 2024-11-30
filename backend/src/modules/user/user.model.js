@@ -33,4 +33,10 @@ const User = sequelize.define('user', {
     timestamps: true,
 });
 
+User.associate = (models) => {
+    User.hasOne(models.Doctor);
+    User.hasOne(models.Patient);
+    User.hasOne(models.Admin);
+};
+
 export { User };

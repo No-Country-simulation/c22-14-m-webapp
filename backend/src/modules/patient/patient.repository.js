@@ -4,7 +4,6 @@ class PatientRepository {
     }
   
     async create(patientData) {
-        console.log("repo", patientData)
         return await this.patientModel.create(patientData);
     }
   }

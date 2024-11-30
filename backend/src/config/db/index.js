@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 
-import config from '../env.js';
+import { config } from '../env.js';
 
 const sequelize = new Sequelize({
     dialect: 'postgres',

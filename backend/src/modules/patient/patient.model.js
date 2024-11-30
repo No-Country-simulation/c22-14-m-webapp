@@ -18,6 +18,12 @@ const Patient = sequelize.define('patient', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-  });
+},{
+    timestamps: false,
+});
+
+Patient.associate = (models) => {
+    Patient.belongsTo(models.User, { onDelete: 'CASCADE' });
+};
 
   export { Patient }

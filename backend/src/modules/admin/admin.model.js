@@ -1,12 +1,16 @@
-const Admin = sequelize.define('Admin', {
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../../config/db/index.js';
+
+const Admin = sequelize.define('admin', {
     department: {
       type: DataTypes.STRING,
     },
-  });
+  }, {
+    timestamps: false,
+});
 
-//! mover al global
-// Doctor.belongsTo(User, { onDelete: 'CASCADE' });
-// Patient.belongsTo(User, { onDelete: 'CASCADE' });
-// Admin.belongsTo(User, { onDelete: 'CASCADE' });
+Admin.associate = (models) => {
+  Admin.belongsTo(models.User, { onDelete: 'CASCADE' });
+};
 
-export { Admin}
+export { Admin }
