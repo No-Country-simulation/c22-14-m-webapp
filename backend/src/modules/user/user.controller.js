@@ -24,7 +24,6 @@ class UserController {
     async getAllDoctors(req, res) {
         try {
             const doctors = await this.userService.getAllDoctors();
-            console.log("vamosss", doctors)
             res.status(200).json(doctors);
         } catch (error) {
             res.status(404).json({ message: error.message });

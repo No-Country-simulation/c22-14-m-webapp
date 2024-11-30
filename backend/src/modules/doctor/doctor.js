@@ -3,4 +3,4 @@ import { DoctorRepository } from './doctor.repository.js';
 
 const doctorRepository = new DoctorRepository(Doctor);
 
-export { doctorRepository };
+export { Doctor, doctorRepository };

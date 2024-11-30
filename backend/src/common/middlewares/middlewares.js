@@ -28,7 +28,7 @@ const validateDoctor = (data) => {
   
   const createUserValid = (req, res, next) => {
     const { firstName, lastName, email, password, role, ...extraFields } = req.body;
-  
+    
     if (!email || !password || !firstName || !lastName || !role) {
       return res.status(400).json({ error: true, message: "Debe llenar todos los campos" });
     }

@@ -24,10 +24,12 @@ const SignUp = () => {
         firstName: "",
         lastName: "",
         birthDate: "",
+        address: "",
         dni: "",
         phoneNumber: "",
         email: "",
         password: "",
+        role: "patient",
     });
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -59,7 +61,6 @@ const SignUp = () => {
         }
 
         try {
-            // Enviar datos al servidor
             const response = await fetch(`${SIGN_UP}`, {
                 method: "POST",
                 headers: {
@@ -67,12 +68,12 @@ const SignUp = () => {
                 },
                 body: JSON.stringify(formData),
             });
+            const data = await response.json();
 
             if (!response.ok) {
-                throw new Error("Error en el registro. Por favor intenta nuevamente.");
+                throw new Error(data.message);
             }
 
-            const data = await response.json();
             console.log("Registro exitoso:", data);
 
             localStorage.removeItem('signUpFormData');
@@ -115,6 +116,15 @@ const SignUp = () => {
                         name="lastName"
                         size="small"
                         value={formData.lastName}
+                        onChange={handleChange}
+                        required
+                    />
+                    <TextField
+                        label="Dirección"
+                        type="text"
+                        name="address"
+                        size="small"
+                        value={formData.address}
                         onChange={handleChange}
                         required
                     />
