@@ -22,6 +22,7 @@ Telemedicine application enabling patients to schedule virtual appointments, doc
 
 ## 💽 DB Schema
 
+```mermaid
 erDiagram
     USERS {
         int id PK
@@ -89,8 +90,8 @@ erDiagram
     PATIENTS ||--o{ APPOINTMENTS : "has appointments"
     APPOINTMENTS ||--o| MEDICAL_RECORDS : "has medical record"
 
-
 ```
+
 
 ## 🏃‍♂️ Simple Start
 
