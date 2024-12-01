@@ -8,6 +8,11 @@ class MedicalHistoryService {
             ...medicalHistoryData
         });
     }
+
+    async getMedicalHistoryByPatient(patientId) {
+        const medicalHistories = await this.medicalHistoryRepository.findByPatientId(patientId);
+        return medicalHistories;
+    }
 }
 
 export { MedicalHistoryService};

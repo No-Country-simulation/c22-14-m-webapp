@@ -1,7 +1,7 @@
-import { MedicalHistoryService } from "./medicalHistory.service";
-import { MedicalHistoryController } from "./medicalHistory.controller";
-import { MedicalHistory } from "./medicalHistory.model";
-import { MedicalHistoryRepository } from "./medicalHistory.reposirory";
+import { MedicalHistoryService } from "./medicalHistory.service.js";
+import { MedicalHistoryController } from "./medicalHistory.controller.js";
+import { MedicalHistory } from "./medicalHistory.model.js";
+import { MedicalHistoryRepository } from "./medicalHistory.reposirory.js";
 
 const medicalHistoryRepository = new MedicalHistoryRepository(MedicalHistory);
 const medicalHistoryService = new MedicalHistoryService(medicalHistoryRepository);
