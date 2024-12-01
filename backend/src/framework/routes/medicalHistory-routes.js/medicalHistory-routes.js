@@ -7,4 +7,5 @@ medicalHistoryRouter.post('/medicalHistory', function(req, res){
     medicalHistoryController.createMedicalHistory(req, res);
 });
 
+
 export default medicalHistoryRouter;
