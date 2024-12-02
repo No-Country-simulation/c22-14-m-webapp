@@ -21,7 +21,7 @@ sequelize.sync({ force: false })
     .then(() => {
         console.log('Base de datos sincronizada');
         app.listen(config.port , () => {
-            console.log(`Servidor escuchando en http://localhost:${process.env.PORT || 3000}`);
+            console.log(`Servidor escuchando en http://localhost:${process.env.PORT}`);
         });
 
     }).catch((error) => {
