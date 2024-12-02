@@ -17,6 +17,5 @@ class DoctorService {
         return await this.doctorRepository.create(doctorData);
     }
     
-
-    
 };
+export { DoctorService };

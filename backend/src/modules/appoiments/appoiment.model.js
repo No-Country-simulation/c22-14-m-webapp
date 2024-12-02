@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/db/index.js';
-import { Patient } from '../patients/patient.model.js';
-import { Doctor } from '../doctors/doctor.model.js';
+import { Patient } from '../patient/patient.model.js';
+import { Doctor } from '../doctor/doctor.model.js';
 
 const Appoiment = sequelize.define('Appoiment', {
     id: {

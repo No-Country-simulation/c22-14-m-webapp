@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { patientController } from '../../../modules/patients/patients.js';
+import { patientController } from '../../../modules/patient/patients.js';
 
 const router = Router();
 

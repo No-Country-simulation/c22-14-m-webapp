@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { tokenService } from '../../common/services/services.js';
-import { doctorRepository } from '../doctor/doctor.js';
-import { patientRepository } from '../patient/patient.js';
+import { DoctorRepository } from '../doctor/doctor.repository.js';
+import { PatientRepository } from '../patient/patient.repository.js';
 
 class UserService {
     constructor(userRepository) {
@@ -38,7 +38,7 @@ class UserService {
         if (!doctors) {
             throw new Error('No hay doctores registrados');
         }
-        return patientRepository;
+        return patient;
     }
 
     async registerUser(userData) {
@@ -59,12 +59,12 @@ class UserService {
         });
 
         if(role === 'doctor') {
-            const newDoctor = await doctorRepository.create({
+            const newDoctor = await DoctorRepository.create({
                 ...additionalInfo,
                 userId: newUser.id
             });
         } else if ( role === 'patient') {
-            const newPatient = await patientRepository.create({
+            const newPatient = await PatientRepository.create({
                 ...additionalInfo,
                 userId: newUser.id
             });
