@@ -5,4 +5,5 @@ const apiRoutes = Router();
 
 apiRoutes.use("/user", userRoutes);
 
-export default apiRoutes;
+
+export { apiRoutes };

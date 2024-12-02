@@ -3,6 +3,7 @@ import { Auth } from '../bundles/auth/pages/auth';
 import { SignUp } from '../bundles/auth/pages/signUp';
 import { ProtectedRoute } from '../bundles/common/components/components';
 import { AppRoute } from '../bundles/common/constants/constants';
+import HistoryMedical from '../bundles/home/pages/history-medical';
 import { Home } from '../bundles/home/pages/home';
 
 const routes = [
@@ -25,6 +26,10 @@ const routes = [
                         <Home />
                     </ProtectedRoute>
                 ),
+            },
+            {
+                path: AppRoute.HISTORY_MEDICAL,
+                element: <HistoryMedical />,
             },
             // {
             //     path: AppRoute.ANY,

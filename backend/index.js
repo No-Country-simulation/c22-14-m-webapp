@@ -1,9 +1,11 @@
-import express from 'express';
-import config from './config/env.js';
-import apiRoutes from './framework/routes/routes.js';
 import cors from 'cors';
-import morgan from 'morgan'
-import { sequelize } from './config/db/index.js';
+import express from 'express';
+import morgan from 'morgan';
+
+import ("./src/config/db/models/models-associations.js");
+import { apiRoutes } from './src/framework/routes/routes.js';
+import { config } from './src/config/env.js';
+import { sequelize } from './src/config/db/index.js';
 
 const app = express();
 
@@ -19,7 +21,7 @@ sequelize.sync({ force: false })
     .then(() => {
         console.log('Base de datos sincronizada');
         app.listen(config.port , () => {
-            console.log(`Servidor escuchando en http://localhost:${process.env.PORT || 3000}`);
+            console.log(`Servidor escuchando en http://localhost:${process.env.PORT}`);
         });
     }).catch((error) => {
         console.error('Error al conectar a la base de datos:', error);
