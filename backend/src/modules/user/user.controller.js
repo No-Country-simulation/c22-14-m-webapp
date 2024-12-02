@@ -1,3 +1,6 @@
+// controlador, recibe las solicitudes http, llama a los metodos
+// envia la respuesta al front(errores o rediccionamientos)
+
 class UserController {
     constructor(userService) {
         this.userService = userService;
