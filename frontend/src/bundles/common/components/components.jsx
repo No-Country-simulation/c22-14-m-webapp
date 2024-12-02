@@ -7,7 +7,9 @@ export {
     Link,
     Typography,
     TextField,
+    Container,
     Box,
-    Container
+    useTheme,
+    useMediaQuery
 } from '@mui/material';
 
