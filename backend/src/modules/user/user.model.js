@@ -5,7 +5,7 @@ const User = sequelize.define('user', {
     id: {
         type: DataTypes.UUID,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV1,
+        defaultValue: DataTypes.UUIDV4,
     },
     firstName: {
         type: DataTypes.STRING,
@@ -15,22 +15,15 @@ const User = sequelize.define('user', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    birthDate: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    dni: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    phoneNumber: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+    },
+    role: {
+        type: DataTypes.ENUM('doctor', 'patient', 'admin'),
+        allowNull: false,
+        defaultValue: 'patient',
     },
     password: {
         type: DataTypes.STRING,
@@ -39,5 +32,11 @@ const User = sequelize.define('user', {
 }, {
     timestamps: true,
 });
+
+User.associate = (models) => {
+    User.hasOne(models.Doctor);
+    User.hasOne(models.Patient);
+    User.hasOne(models.Admin);
+};
 
 export { User };

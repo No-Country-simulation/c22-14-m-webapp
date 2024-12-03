@@ -10,6 +10,6 @@ export {
     Box,
     Container,
     useTheme,
-    useMediaQuery,
+    useMediaQuery
 } from '@mui/material';
 
