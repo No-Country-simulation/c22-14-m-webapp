@@ -1,0 +1,294 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 17.1
+-- Dumped by pg_dump version 17.1
+-- Started on 2024-11-18 11:03:36
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 217 (class 1259 OID 16389)
+-- Name: Users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Users" (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    first_name character varying(100) NOT NULL,
+    email character varying(100) NOT NULL,
+    password character varying(255) NOT NULL,
+    role character varying(20) NOT NULL,
+    last_name character varying(100),
+    updated_at timestamp without time zone DEFAULT now() NOT NULL,
+    created_at time without time zone DEFAULT now() NOT NULL,
+    CONSTRAINT users_role_check CHECK (((role)::text = ANY ((ARRAY['patient'::character varying, 'doctor'::character varying, 'admin'::character varying])::text[])))
+);
+
+
+ALTER TABLE public."Users" OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 16424)
+-- Name: appointments; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.appointments (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    patient_id uuid NOT NULL,
+    doctor_id uuid NOT NULL,
+    appointment_date timestamp without time zone NOT NULL,
+    status character varying(20) DEFAULT 'scheduled'::character varying,
+    notes text,
+    "createdAt" time without time zone DEFAULT now() NOT NULL,
+    "updatedAt" timestamp(6) without time zone DEFAULT now() NOT NULL,
+    CONSTRAINT appointments_status_check CHECK (((status)::text = ANY ((ARRAY['scheduled'::character varying, 'completed'::character varying, 'cancelled'::character varying])::text[])))
+);
+
+
+ALTER TABLE public.appointments OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16411)
+-- Name: doctors; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.doctors (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    user_id uuid NOT NULL,
+    specialization character varying(100) NOT NULL,
+    license_number character varying(50) NOT NULL,
+    phone character varying(15),
+    video_link character varying(200),
+    "createdAtt" timestamp(6) without time zone DEFAULT now() NOT NULL,
+    "updatedAt" timestamp(6) without time zone DEFAULT now() NOT NULL
+);
+
+
+ALTER TABLE public.doctors OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 16444)
+-- Name: medical_records; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.medical_records (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    patient_id uuid NOT NULL,
+    doctor_id uuid NOT NULL,
+    record_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    description text,
+    "createdAtt" time without time zone DEFAULT now() NOT NULL,
+    "updatedAt" timestamp(6) without time zone DEFAULT now() NOT NULL
+);
+
+
+ALTER TABLE public.medical_records OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 16400)
+-- Name: patients; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.patients (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    user_id uuid NOT NULL,
+    date_of_birth date NOT NULL,
+    gender character varying(10),
+    phone character varying(15),
+    "createdAt" timestamp(6) without time zone DEFAULT now() NOT NULL,
+    "updatedAt" timestamp(6) without time zone DEFAULT now() NOT NULL
+);
+
+
+ALTER TABLE public.patients OWNER TO postgres;
+
+--
+-- TOC entry 4894 (class 0 OID 16389)
+-- Dependencies: 217
+-- Data for Name: Users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Users" (id, first_name, email, password, role, last_name, updated_at, created_at) FROM stdin;
+23c8dc30-b58a-4d8e-b59f-5213c860c4ba	Juan	juan@google.com	123456	doctor	Perez	2024-11-16 00:00:00	20:17:54.564
+0c574d83-f81e-4745-b674-55c5faf16de7	Juan	juanperez@google.com	123456	doctor	Perez	2024-11-16 00:00:00	12:35:33.903
+\.
+
+
+--
+-- TOC entry 4897 (class 0 OID 16424)
+-- Dependencies: 220
+-- Data for Name: appointments; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.appointments (id, patient_id, doctor_id, appointment_date, status, notes, "createdAt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- TOC entry 4896 (class 0 OID 16411)
+-- Dependencies: 219
+-- Data for Name: doctors; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.doctors (id, user_id, specialization, license_number, phone, video_link, "createdAtt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- TOC entry 4898 (class 0 OID 16444)
+-- Dependencies: 221
+-- Data for Name: medical_records; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.medical_records (id, patient_id, doctor_id, record_date, description, "createdAtt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- TOC entry 4895 (class 0 OID 16400)
+-- Dependencies: 218
+-- Data for Name: patients; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.patients (id, user_id, date_of_birth, gender, phone, "createdAt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- TOC entry 4740 (class 2606 OID 16433)
+-- Name: appointments appointments_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.appointments
+    ADD CONSTRAINT appointments_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4736 (class 2606 OID 16418)
+-- Name: doctors doctors_license_number_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctors
+    ADD CONSTRAINT doctors_license_number_key UNIQUE (license_number);
+
+
+--
+-- TOC entry 4738 (class 2606 OID 16416)
+-- Name: doctors doctors_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctors
+    ADD CONSTRAINT doctors_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4742 (class 2606 OID 16452)
+-- Name: medical_records medical_records_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.medical_records
+    ADD CONSTRAINT medical_records_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4734 (class 2606 OID 16405)
+-- Name: patients patients_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.patients
+    ADD CONSTRAINT patients_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4730 (class 2606 OID 16399)
+-- Name: Users users_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Users"
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+
+
+--
+-- TOC entry 4732 (class 2606 OID 16397)
+-- Name: Users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Users"
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4745 (class 2606 OID 16439)
+-- Name: appointments appointments_doctor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.appointments
+    ADD CONSTRAINT appointments_doctor_id_fkey FOREIGN KEY (doctor_id) REFERENCES public.doctors(id);
+
+
+--
+-- TOC entry 4746 (class 2606 OID 16434)
+-- Name: appointments appointments_patient_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.appointments
+    ADD CONSTRAINT appointments_patient_id_fkey FOREIGN KEY (patient_id) REFERENCES public.patients(id);
+
+
+--
+-- TOC entry 4744 (class 2606 OID 16419)
+-- Name: doctors doctors_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctors
+    ADD CONSTRAINT doctors_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."Users"(id);
+
+
+--
+-- TOC entry 4747 (class 2606 OID 16458)
+-- Name: medical_records medical_records_doctor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.medical_records
+    ADD CONSTRAINT medical_records_doctor_id_fkey FOREIGN KEY (doctor_id) REFERENCES public.doctors(id);
+
+
+--
+-- TOC entry 4748 (class 2606 OID 16453)
+-- Name: medical_records medical_records_patient_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.medical_records
+    ADD CONSTRAINT medical_records_patient_id_fkey FOREIGN KEY (patient_id) REFERENCES public.patients(id);
+
+
+--
+-- TOC entry 4743 (class 2606 OID 16406)
+-- Name: patients patients_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.patients
+    ADD CONSTRAINT patients_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."Users"(id);
+
+
+-- Completed on 2024-11-18 11:03:37
+
+--
+-- PostgreSQL database dump complete
+--
+
