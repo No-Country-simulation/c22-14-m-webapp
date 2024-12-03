@@ -3,11 +3,27 @@ import { sequelize } from '../../config/db/index.js';
 
 const User = sequelize.define('user', {
     id: {
-        type: DataTypes.UUIDV1,
+        type: DataTypes.UUID,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV1,
+        defaultValue: DataTypes.UUIDV4,
     },
-    fullName: {
+    firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    lastName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    birthDate: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    dni: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    phoneNumber: {
         type: DataTypes.STRING,
         allowNull: false,
     },

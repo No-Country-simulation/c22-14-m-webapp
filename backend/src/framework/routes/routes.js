@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import userRoutes from './user-routes/user-routes';
-import patientsRoutes from './patient-routes/patient-routes';
+import userRoutes from './user-routes/user-routes.js';
+import patientsRoutes from './patients-routes/patients-routes.js';
 
 const apiRoutes = Router();
 

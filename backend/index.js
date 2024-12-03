@@ -1,9 +1,9 @@
 import express from 'express';
-import config from './config/env.js';
-import apiRoutes from './framework/routes/routes.js';
+import config from './src/config/env.js';
+import apiRoutes from './src/framework/routes/routes.js';
 import cors from 'cors';
 import morgan from 'morgan'
-import { sequelize } from './config/db/index.js';
+import { sequelize } from './src/config/db/index.js';
 
 const app = express();
 

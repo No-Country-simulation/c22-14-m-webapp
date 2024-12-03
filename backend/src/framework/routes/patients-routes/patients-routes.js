@@ -1,9 +1,8 @@
 import { Router } from 'express';
-import { PatientController } from '../../modules/patient.controller.js';
-import { PatientService } from '../../services/patient.service.js';
-import { PatientRepository } from '../../repositories/patient.repository.js';
-import { Patient } from '../../models/patient.model.js';
-
+import { PatientController } from '../../../modules/patients/patient.controler.js';
+import { PatientService } from '../../../modules/patients/patient.service.js';
+import { PatientRepository } from '../../../modules/patients/patient.repository.js';
+import { Patient } from '../../../modules/patients/patient.model.js';
 
 const router = Router();
 const patientRepository = new PatientRepository(Patient);

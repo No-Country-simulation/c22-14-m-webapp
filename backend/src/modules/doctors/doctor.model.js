@@ -3,23 +3,19 @@ import { sequelize } from '../../config/db/index.js';
 
 const Doctor = sequelize.define('Doctor', {
     id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         primaryKey: true,
-        autoIncrement: true,
+        foreignKey: true,
+        defaultValue: DataTypes.UUIDV4,
     },
-    fullName: {
+    especialty: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
+    lisenceNumber: { 
+        type: DataTypes.STRING, 
+        allowNull: true,
+    }
 });
 
 

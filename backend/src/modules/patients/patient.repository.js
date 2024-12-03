@@ -1,3 +1,5 @@
+//controla la iteraccion directa con la base de datos
+
 class PatientRepository {
     constructor(patientModel) {
         this.patientModel = patientModel;
@@ -15,6 +17,5 @@ class PatientRepository {
         return await this.patientModel.create(patientData);
     }
 }
-
 
 export { PatientRepository };

@@ -1,25 +1,30 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/db/index.js';
-import { Doctor } from './doctor.model.js';
+import { Doctor } from '../doctors/doctor.model.js';
 
 const Patient = sequelize.define('Patient', {
     id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         primaryKey: true,
-        autoIncrement: true,
+        foreignKey: true,
+        defaultValue: DataTypes.UUIDV4,
     },
-    fullName: {
+    address: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    age: {
-        type: DataTypes.INTEGER,
+    dni:{
+        type: DataTypes.STRING,
         allowNull: false,
     },
-    medicalHistory: {
-        type: DataTypes.TEXT,
-        allowNull: true,
+    brirtDate: {
+        type: DataTypes.DATE,
+        allowNull: false,
     },
+    phoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }
 });
 
 
