@@ -41,7 +41,6 @@ const SignUp = () => {
         alignItems: 'center',
         width: '80%',
         paddingBottom: isSmall ? '10%' : '18%',
-        paddingBottom: isSmall ? '5%' : '10%',
     }
     const TYPOGRAPHY_REGISTER_STYLES = {
         display: 'flex',
