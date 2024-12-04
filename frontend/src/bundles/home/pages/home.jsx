@@ -2,6 +2,8 @@ import { Button, Typography, Container, Link } from "../../common/components/com
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { AppRoute } from '../../common/constants/constants'
+import NavBar from '../../common/components/navbar'
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -28,6 +30,9 @@ const Home = () => {
   }
 
   return (
+    <>
+    
+    <NavBar />
     <Container maxWidth="sm" style={{ marginTop: '50px' }}>
       <Link underline="none" href={AppRoute.SIGN_UP}>Registrarse</Link>
       <Link underline="none" href={AppRoute.SIGN_IN}>Iniciar Sesión</Link>
@@ -38,7 +43,9 @@ const Home = () => {
         Cerrar Sesión
       </Button>
     </Container>
+    </>
+    
   );
 };
 
-export { Home }
+export {Home};
