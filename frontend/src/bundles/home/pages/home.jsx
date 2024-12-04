@@ -3,6 +3,8 @@ import {
   useMediaQuery, Container, Button
 } from "../../common/components/components"
 import { ClipboardList, Brain, UserRound, Heart } from 'lucide-react'
+import NavBar from '../../common/components/navbar'
+
 
 const Home = () => {
   const theme = useTheme();
@@ -217,4 +219,4 @@ const Home = () => {
   )
 }
 
-export { Home }
+export {Home};

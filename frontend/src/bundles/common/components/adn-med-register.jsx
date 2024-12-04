@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import "../../../css/register-medic-adn.css";
+
 import {
   TextField,
   Button,
@@ -21,8 +23,8 @@ export default function RegisterMedicAdminForm() {
   };
 
   return (
-    <Box sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
-      <Typography variant="h4" component="h1" gutterBottom>
+    <Box className="form-container" sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
+      <Typography sx={{ textAlign: 'center' }} variant="h4" component="h1" gutterBottom>
         Registration Form
       </Typography>
       <form onSubmit={handleSubmit}>
@@ -30,6 +32,7 @@ export default function RegisterMedicAdminForm() {
           fullWidth
           margin="normal"
           label="DNI"
+          type='number'
           variant="outlined"
           required
         />
@@ -105,6 +108,7 @@ export default function RegisterMedicAdminForm() {
         </FormControl>
         <Button
           type="submit"
+          className="btn-register"
           variant="contained"
           color="dark"
           fullWidth
