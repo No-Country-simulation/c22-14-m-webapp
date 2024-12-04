@@ -10,6 +10,10 @@ export {
     Box,
     Container,
     useTheme,
-    useMediaQuery
+    useMediaQuery,
+    Select,
+    MenuItem,
+    FormControl,
+    InputLabel
 } from '@mui/material';
 
