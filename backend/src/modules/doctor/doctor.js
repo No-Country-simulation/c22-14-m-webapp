@@ -9,4 +9,4 @@ const doctorRepository = new DoctorRepository(Doctor);
 const doctorService = new DoctorService(doctorRepository);
 const doctorController = new DoctorController(doctorService);
 
-export { doctorController };
+export { Doctor, doctorRepository };

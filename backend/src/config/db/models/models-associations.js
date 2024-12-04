@@ -33,7 +33,6 @@ const importPromises = moduleFolders.map(async (moduleName) => {
 });
 
 await Promise.all(importPromises);
-console.log(models)
 Object.keys(models).forEach((modelName) => {
     if (models[modelName]?.associate) {
         models[modelName].associate(models);
