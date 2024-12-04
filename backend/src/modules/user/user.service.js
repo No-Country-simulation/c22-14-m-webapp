@@ -1,7 +1,8 @@
 import bcrypt from 'bcrypt';
 import { tokenService } from '../../common/services/services.js';
-import { DoctorRepository } from '../doctor/doctor.repository.js';
-import { PatientRepository } from '../patient/patient.repository.js';
+import { doctorRepository } from '../doctor/doctor.js';
+import { patientRepository } from '../patient/patient.js';
+import { adminRepository } from '../admin/admin.js';
 
 class UserService {
     constructor(userRepository) {
@@ -10,7 +11,6 @@ class UserService {
 
     async findAllUsers() {
         const users = await this.userRepository.findAll();
-        console.log("users", users);
         if(users.length === 0) {
           throw new Error('No hay usuarios registrados');
         }
@@ -43,12 +43,12 @@ class UserService {
 
     async registerUser(userData) {
         const { firstName, lastName, role, password, email, ...additionalInfo } = userData;
-
+        
         const existingUser = await this.userRepository.findByEmail(email);
         if (existingUser) {
             throw new Error('El email ya está registrado');
         }
-
+        
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await this.userRepository.create({
             firstName,
@@ -57,20 +57,22 @@ class UserService {
             email,
             password: hashedPassword,
         });
-
+        
         if(role === 'doctor') {
-            const newDoctor = await DoctorRepository.create({
+            const newDoctor = await doctorRepository.create({
                 ...additionalInfo,
                 userId: newUser.id
             });
         } else if ( role === 'patient') {
-            const newPatient = await PatientRepository.create({
+            const newPatient = await patientRepository.create({
                 ...additionalInfo,
                 userId: newUser.id
             });
-            console.log(newPatient)
         } else if (role === 'admin') {
-            console.log("hello admin")
+            const newAdmin = await adminRepository.create({
+                ...additionalInfo,
+                userId: newUser.id
+            });
         }
         
         const token = await tokenService.createToken(newUser.id);

@@ -15,3 +15,5 @@ export {
     useMediaQuery
 } from '@mui/material';
 
+export { DatePicker } from '@mui/x-date-pickers';
+
