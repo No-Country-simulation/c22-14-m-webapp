@@ -1,20 +1,12 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/db/index.js';
-import { Appoiment } from '../appoiments/appoiment.model.js';
-
-
 //solo crear un post con los datos de la cita.
 
-
-const MedicalHistory = sequelize.define( 'MedicalHistory',{
+const Record = sequelize.define( 'record',{
     id: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4,
-    },
-    appoiment_id: {
-        type: DataTypes.UUID,
-        foreignKey: true,
+        autoIncrement: true,
     },
     consultation: {
         type: DataTypes.TEXT,
@@ -30,7 +22,9 @@ const MedicalHistory = sequelize.define( 'MedicalHistory',{
     }
 })
 
-MedicalHistory.belongsTo(Appoiment, { foreignKey: 'appoimentId'});
+Record.associate = (models) => {
+    Record.belongsTo(models.Appoiment, { onDelete: 'CASCADE' });
+};
 
 
-export { MedicalHistory };
+export { Record };

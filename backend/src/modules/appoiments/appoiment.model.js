@@ -1,25 +1,14 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/db/index.js';
 import { Patient } from '../patient/patient.model.js';
-import { Doctor } from '../doctor/doctor.model.js';
 
-const Appoiment = sequelize.define('Appoiment', {
+const Appoiment = sequelize.define('appoiment', {
     id: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         foreignKey: true,
-        defaultValue: DataTypes.UUIDV4,
+        autoIncrement: true,
     },
-    doctor_id: {
-        type: DataTypes.UUID, 
-        foreignKey: true,
-        allowNull: true,
-    }, 
-    patient_id: {
-        type: DataTypes.UUID,
-        foreignKey: true,
-        allowNull: true,
-    }, 
     date: {
         type: DataTypes.DATE,
         allowNull: true,
@@ -30,8 +19,10 @@ const Appoiment = sequelize.define('Appoiment', {
     }
 })
 
-Doctor.hasMany (Appoiment, {foreignKey: 'doctorId', onDelete: 'CASCADE' } );
-Patient.hasMany(Appoiment, { foreignKey: 'patientId', onDelete: 'CASCADE' });
+Appoiment.associate = (models) => {
+    Appoiment.belongsTo(models.Doctor, { onDelete: 'CASCADE' });
+    Appoiment.belongsTo(models.Patient, { onDelete: 'CASCADE' });
+};
 
 
 export { Appoiment };
