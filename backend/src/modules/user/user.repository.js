@@ -1,3 +1,5 @@
+//controla la iteraccion directa con la base de datos
+
 class UserRepository {
     constructor(userModel, patientModel, doctorModel, adminModel) {
         this.userModel = userModel;

@@ -92,6 +92,7 @@ erDiagram
 
 ```
 
+
 ## 🏃‍♂️ Simple Start
 
 1. Install packages: **`npm install`**

@@ -8,6 +8,10 @@ export {
     Typography,
     TextField,
     Box,
-    Container
+    Container,
+    useTheme,
+    useMediaQuery,
 } from '@mui/material';
+
+export { DatePicker } from '@mui/x-date-pickers';
 

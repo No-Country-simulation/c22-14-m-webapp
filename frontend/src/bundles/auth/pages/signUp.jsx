@@ -1,29 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { TextField, Button, Typography, Box, Container } from '../../common/components/components';
+import { useState, useEffect } from "react";
+import {
+    TextField, Button, Typography, Box, Container, useTheme,
+    useMediaQuery,
+    DatePicker
+} from '../../common/components/components';
 import { useNavigate } from 'react-router-dom';
 import { SIGN_UP } from '../../../settings';
 
-const CONTAINER_REGISTER_STYLES = { "&": { padding: '0 3%' }, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '35%', background: '#ffffff', boxShadow: '5px 5px 15px rgba(0, 0, 0, 0.3)', borderRadius: '4%' }
-const BOX_REGISTER_STYLES = { display: 'flex', flexDirection: 'column', alignItems: 'center', width: '80%', paddingBottom: '18%' }
-const TYPOGRAPHY_REGISTER_STYLES = {
-    display: 'flex', flexDirection: 'column', justifyContent: 'center',
-    paddingTop: '20%', paddingBottom: '10%', color: '#bdbdbd', '& .MuiTypography-root': {
-        fontSize: '36px'
-    },
-}
-const TEXTFIELD_REGISTER_STYLES = {
-    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '35px', width: '100%', paddingBottom: '23%', '& .MuiTextField-root': { width: '100%', '& .MuiOutlinedInput-root': { boxShadow: '0px 5px 20px #00000074' } }, "& .MuiOutlinedInput-root": {
-        "& fieldset": { borderColor: "#E0E3E7" }, "&:hover fieldset": { borderColor: "#E0E3E7" }
-    }
-}
-const BUTTON_REGISTER_STYLES = { display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '50%' }
 
 const SignUp = () => {
     const navigate = useNavigate();
+    const theme = useTheme();
+    const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMedium = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+    const isLarge = useMediaQuery(theme.breakpoints.down('sm'));
+    const [errorMessage, setErrorMessage] = useState("");
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
-        birthDate: "",
+        birthDate: null,
         address: "",
         dni: "",
         phoneNumber: "",
@@ -31,7 +26,58 @@ const SignUp = () => {
         password: "",
         role: "patient",
     });
-    const [errorMessage, setErrorMessage] = useState("");
+
+
+    const CONTAINER_REGISTER_STYLES = {
+        "&": { padding: '0 3%' },
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: isSmall ? '100%' : isMedium ? '70%' : '35%',
+        background: '#ffffff',
+        boxShadow: '5px 5px 15px rgba(0, 0, 0, 0.3)',
+        borderRadius: '4%'
+    }
+    const BOX_REGISTER_STYLES = {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '80%',
+        paddingBottom: isSmall ? '10%' : '18%',
+    }
+    const TYPOGRAPHY_REGISTER_STYLES = {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        paddingTop: isSmall ? '10%' : '20%',
+        textAlign: 'center',
+        paddingBottom: '10%',
+        color: '#bdbdbd',
+        '& .MuiTypography-root': {
+            fontSize: isSmall ? '30px' : isMedium ? '33px' : isLarge ? '38px' : '38px',
+        },
+    }
+    const TEXTFIELD_REGISTER_STYLES = {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: isSmall ? '20px' : isMedium ? '30px' : '35px',
+        width: '100%',
+        paddingBottom: isSmall ? '10%' : '23%',
+        '& .MuiTextField-root': { width: '100%', '& .MuiOutlinedInput-root': { boxShadow: '0px 5px 20px #00000074' } },
+        "& .MuiOutlinedInput-root": {
+            "& fieldset": { borderColor: "#E0E3E7" },
+            "&:hover fieldset": { borderColor: "#E0E3E7" }
+        }
+    }
+    const BUTTON_REGISTER_STYLES = {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        width: isSmall ? '70%' : isMedium ? '60%' : isLarge ? '50%' : '50%',
+        marginTop: isSmall ? '5%' : undefined,
+        background: '#00A6A0'
+    }
 
     useEffect(() => {
         const savedFormData = localStorage.getItem('signUpFormData');
@@ -51,9 +97,16 @@ const SignUp = () => {
             [name]: value,
         }));
     };
+    const handleDateChange = (date) => {
+        setFormData(prevData => ({
+            ...prevData,
+            birthDate: date,
+        }));
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
 
         if (Object.values(formData).some(field => !field)) {
             setErrorMessage("Por favor, completa todos los campos requeridos.");
@@ -70,6 +123,7 @@ const SignUp = () => {
             });
             const data = await response.json();
 
+
             if (!response.ok) {
                 throw new Error(data.message);
             }
@@ -83,6 +137,7 @@ const SignUp = () => {
             setErrorMessage(error.message);
         }
     };
+
     return (
         <Container sx={CONTAINER_REGISTER_STYLES}>
             <Box sx={BOX_REGISTER_STYLES}
@@ -93,14 +148,7 @@ const SignUp = () => {
                         <Typography variant="h4" component="h1">
                             Regístrate en VitaMind
                         </Typography>
-
-                        {errorMessage && (
-                            <Typography variant="body1" color="error">
-                                {errorMessage}
-                            </Typography>
-                        )}
                     </Box>
-
                     <TextField
                         label="Nombre"
                         type='text'
@@ -108,6 +156,7 @@ const SignUp = () => {
                         size="small"
                         value={formData.firstName}
                         onChange={handleChange}
+                        helperText={errorMessage}
                         required
                     />
                     <TextField
@@ -128,7 +177,15 @@ const SignUp = () => {
                         onChange={handleChange}
                         required
                     />
-                    <TextField
+                    <DatePicker
+                        label="Fecha de nacimiento"
+                        name="birthDate"
+                        size="small"
+                        value={formData.birthDate}  // Debe ser un objeto Date
+                        onChange={handleDateChange}  // Usar una función separada para manejar cambios en la fecha
+                        required
+                    />
+                    {/* <TextField
                         label="Fecha de nacimiento"
                         type="text"
                         name="birthDate"
@@ -136,7 +193,7 @@ const SignUp = () => {
                         value={formData.birthDate}
                         onChange={handleChange}
                         required
-                    />
+                    /> */}
                     <TextField
                         label="DNI"
                         type="text"
@@ -179,5 +236,6 @@ const SignUp = () => {
         </Container>
     )
 }
+
 
 export { SignUp }

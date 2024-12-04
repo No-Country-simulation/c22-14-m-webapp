@@ -38,7 +38,7 @@ class UserService {
         if (!doctors) {
             throw new Error('No hay doctores registrados');
         }
-        return patientRepository;
+        return patient;
     }
 
     async registerUser(userData) {
