@@ -10,7 +10,9 @@ export {
     Box,
     Container,
     useTheme,
-    useMediaQuery,
+    Card,
+    CardContent,
+    useMediaQuery
 } from '@mui/material';
 
 export { DatePicker } from '@mui/x-date-pickers';
