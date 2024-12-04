@@ -1,0 +1,15 @@
+.form-container{
+    background-color: white;
+    box-shadow: 1px 4px 31px -2px rgba(0,0,0,0.51);
+    border-radius: 10px;
+    width: fit-content;
+    color : black;
+    padding: 40px;
+}
+
+.form-container button {
+    background-color: black;
+    color : white;
+    padding: 10px;
+    border-radius: 10px;
+}

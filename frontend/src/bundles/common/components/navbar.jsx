@@ -14,6 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 const publicNavItems = ['Nosotros', 'Servicios', '¡Agende su Cita!', 'Registrarme'];
@@ -69,7 +70,7 @@ function AppBarPublic(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            MUI
+            <Link to="/" sx={{ color: "#000000", textDecoration: 'none' }}>VitaMind</Link>
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {publicNavItems.map((item) => (
