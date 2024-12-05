@@ -1,8 +1,8 @@
 //controla la iteraccion directa con la base de datos
 
 class DoctorRepository {
-    constructor(userModel) {
-        this.userModel = userModel;
+    constructor(doctorModel) {
+        this.doctorModel = doctorModel;
     }
   
     async findAll() {

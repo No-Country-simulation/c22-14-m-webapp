@@ -1,14 +1,8 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/db/index.js';
-import { Doctor } from '../doctors/doctor.model.js';
+import { Doctor } from '../doctor/doctor.model.js';
 
-const Patient = sequelize.define('Patient', {
-    id: {
-        type: DataTypes.UUID,
-        primaryKey: true,
-        foreignKey: true,
-        defaultValue: DataTypes.UUIDV4,
-    },
+const Patient = sequelize.define('patient', {
     address: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -25,11 +19,13 @@ const Patient = sequelize.define('Patient', {
         type: DataTypes.STRING,
         allowNull: false,
     }
+},{
+    timestamps: false,
 });
 
 
-Doctor.hasMany(Patient, { foreignKey: 'doctorId', onDelete: 'CASCADE' });
-Patient.belongsTo(Doctor, { foreignKey: 'doctorId' });
-
+Patient.associate = (models) => {
+    Patient.belongsTo(models.User, { onDelete: 'CASCADE' });
+};
 
 export { Patient };

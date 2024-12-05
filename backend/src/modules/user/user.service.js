@@ -1,8 +1,7 @@
-//intermediario entre la solicitud http y la base de datos
-//(validaciones, modificaciones de tipos de datos)
-
 import bcrypt from 'bcrypt';
 import { tokenService } from '../../common/services/services.js';
+import { DoctorRepository } from '../doctor/doctor.repository.js';
+import { PatientRepository } from '../patient/patient.repository.js';
 
 class UserService {
     constructor(userRepository) {
@@ -11,6 +10,7 @@ class UserService {
 
     async findAllUsers() {
         const users = await this.userRepository.findAll();
+        console.log("users", users);
         if(users.length === 0) {
           throw new Error('No hay usuarios registrados');
         }
@@ -25,8 +25,24 @@ class UserService {
         return user;
     }
 
+    async getAllDoctors() {
+        const doctors = await this.userRepository.findDoctors();
+        if (!doctors) {
+            throw new Error('No hay doctores registrados');
+        }
+        return doctors;
+    }
+
+    async getAllPatients() {
+        const patients = await this.userRepository.findDoctors(id);
+        if (!doctors) {
+            throw new Error('No hay doctores registrados');
+        }
+        return patient;
+    }
+
     async registerUser(userData) {
-        const { password, email } = userData;
+        const { firstName, lastName, role, password, email, ...additionalInfo } = userData;
 
         const existingUser = await this.userRepository.findByEmail(email);
         if (existingUser) {
@@ -35,9 +51,28 @@ class UserService {
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await this.userRepository.create({
-            ...userData,
+            firstName,
+            lastName,
+            role,
+            email,
             password: hashedPassword,
         });
+
+        if(role === 'doctor') {
+            const newDoctor = await DoctorRepository.create({
+                ...additionalInfo,
+                userId: newUser.id
+            });
+        } else if ( role === 'patient') {
+            const newPatient = await PatientRepository.create({
+                ...additionalInfo,
+                userId: newUser.id
+            });
+            console.log(newPatient)
+        } else if (role === 'admin') {
+            console.log("hello admin")
+        }
+        
         const token = await tokenService.createToken(newUser.id);
 
         return { token };

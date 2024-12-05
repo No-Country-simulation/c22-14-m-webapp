@@ -1,13 +1,7 @@
 import { Router } from 'express';
-import { PatientController } from '../../../modules/patients/patient.controler.js';
-import { PatientService } from '../../../modules/patients/patient.service.js';
-import { PatientRepository } from '../../../modules/patients/patient.repository.js';
-import { Patient } from '../../../modules/patients/patient.model.js';
+import { patientController } from '../../../modules/patient/patients.js';
 
 const router = Router();
-const patientRepository = new PatientRepository(Patient);
-const patientService = new PatientService(patientRepository);
-const patientController = new PatientController(patientService);
 
 router.get('/doctor/:doctorId/patients', function (req, res) {
     patientController.getPatients(req, res);
