@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Link, Container, TextField, Typography, Box, useTheme, useMediaQuery } from '../../common/components/components';
+import {
+  Button,
+  Link,
+  Container,
+  TextField,
+  Typography,
+  Box,
+  useTheme,
+  useMediaQuery,
+} from '../../common/components/components';
 import { useNavigate } from 'react-router-dom';
 import { SIGN_IN } from '../../../settings';
 
@@ -30,7 +39,13 @@ const Auth = () => {
     paddingTop: isSmall ? '10%' : isMedium ? '12%' : isLarge ? '15%' : '15%',
     color: '#bdbdbd',
     '& .MuiTypography-root': {
-      fontSize: isSmall ? '30px' : isMedium ? '32px' : isLarge ? '36px' : '40px',
+      fontSize: isSmall
+        ? '30px'
+        : isMedium
+        ? '32px'
+        : isLarge
+        ? '36px'
+        : '40px',
     },
   };
 
@@ -46,9 +61,9 @@ const Auth = () => {
         boxShadow: '0px 5px 20px #00000074',
       },
     },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": { borderColor: "#E0E3E7" },
-      "&:hover fieldset": { borderColor: "#E0E3E7" },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': { borderColor: '#E0E3E7' },
+      '&:hover fieldset': { borderColor: '#E0E3E7' },
     },
   };
 
@@ -61,8 +76,16 @@ const Auth = () => {
   const BOX_LOGIN_STYLES = {
     display: 'flex',
     flexDirection: isSmall ? 'column' : isMedium || isLarge ? 'row' : 'row',
-    justifyContent: isSmall ? 'center' : isMedium || isLarge ? 'space-between' : 'space-between',
-    alignItems: isSmall ? 'center' : isMedium || isLarge ? 'baseline' : 'baseline',
+    justifyContent: isSmall
+      ? 'center'
+      : isMedium || isLarge
+      ? 'space-between'
+      : 'space-between',
+    alignItems: isSmall
+      ? 'center'
+      : isMedium || isLarge
+      ? 'baseline'
+      : 'baseline',
     paddingTop: isSmall ? '10%' : isMedium ? '12%' : isLarge ? '15%' : '15%',
     paddingBottom: isSmall ? '10%' : isMedium ? '12%' : isLarge ? '15%' : '15%',
     color: '#bdbdbd',
@@ -110,7 +133,7 @@ const Auth = () => {
   }
 
   return (
-    <Container sx={CONTAINER_LOGIN_STYLES} >
+    <Container sx={CONTAINER_LOGIN_STYLES}>
       <Box sx={TYPOGRAPHY_LOGIN_STYLES}>
         <Typography variant="h4" component="h1">
           Iniciar Sesión
@@ -118,33 +141,40 @@ const Auth = () => {
       </Box>
       <Box sx={TEXTFIELD_LOGIN_STYLES}>
         <TextField
-          label="Correo"
+          placeholder="Correo"
           type="email"
           value={email}
-          size='small'
+          size="small"
           InputLabelProps={{ shrink: false }}
           onChange={(e) => setEmail(e.target.value)}
           helperText={errorMessage}
         />
         <TextField
-          label="************"
+          placeholder="************"
           type="password"
           value={password}
-          size='small'
+          size="small"
           InputLabelProps={{ shrink: false }}
-
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button sx={BUTTON_LOGIN_STYLES} variant="contained" size='small' onClick={handleLogin}>
+        <Button
+          sx={BUTTON_LOGIN_STYLES}
+          variant="contained"
+          size="small"
+          onClick={handleLogin}
+        >
           Ingresar
         </Button>
       </Box>
       <Box sx={BOX_LOGIN_STYLES}>
         <Typography> No tienes cuenta? </Typography>
-        <Link sx={LINK_LOGIN_STYLES} underline='none' href="/sign-up"> Registrarse </Link>
+        <Link sx={LINK_LOGIN_STYLES} underline="none" href="/sign-up">
+          {' '}
+          Registrarse{' '}
+        </Link>
       </Box>
-    </Container >
+    </Container>
   );
-}
+};
 
-export { Auth }
+export { Auth };
