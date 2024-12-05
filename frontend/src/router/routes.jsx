@@ -5,6 +5,7 @@ import { ProtectedRoute } from '../bundles/common/components/components';
 import { AppRoute } from '../bundles/common/constants/constants';
 import HistoryMedical from '../bundles/home/pages/history-medical';
 import { Home } from '../bundles/home/pages/home';
+import { AppoimentRequest } from '../bundles/auth/pages/appointmentRequest';
 
 const routes = [
     {
@@ -18,6 +19,10 @@ const routes = [
             {
                 path: AppRoute.SIGN_UP,
                 element: <SignUp />,
+            },
+            {
+                path: AppRoute.FEAT_APPOIMENT,  
+                element: <AppoimentRequest />,
             },
             {
                 path: AppRoute.ROOT,

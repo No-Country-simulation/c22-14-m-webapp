@@ -15,6 +15,7 @@ const SignUp = () => {
     const isMedium = useMediaQuery(theme.breakpoints.between('sm', 'md'));
     const isLarge = useMediaQuery(theme.breakpoints.down('sm'));
     const [errorMessage, setErrorMessage] = useState("");
+    const [phoneError, setPhoneError] = useState('');
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -90,12 +91,30 @@ const SignUp = () => {
         localStorage.setItem('signUpFormData', JSON.stringify(formData));
     }, [formData]);
 
+    const validatePhoneNumber = (phoneNumber) => {
+        const cleanedNumber = phoneNumber.replace(/\s|-/g, '');
+        return /^\d{9}$/.test(cleanedNumber);
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
+        if (name === 'phoneNumber') {
+            const sanitizedValue = value.replace(/[^\d\s-]/g, '');
+            if (!validatePhoneNumber(sanitizedValue)) {
+                setPhoneError('El número de teléfono debe tener 9 dígitos.');
+            } else {
+                setPhoneError('');
+            }
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: sanitizedValue,
+            }));
+        } else {
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: value,
+            }));
+        }
     };
     const handleDateChange = (date) => {
         setFormData(prevData => ({
@@ -106,7 +125,6 @@ const SignUp = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
 
         if (Object.values(formData).some(field => !field)) {
             setErrorMessage("Por favor, completa todos los campos requeridos.");
@@ -123,15 +141,16 @@ const SignUp = () => {
             });
             const data = await response.json();
 
-
             if (!response.ok) {
                 throw new Error(data.message);
             }
-
-            console.log("Registro exitoso:", data);
-
+            alert("Registro exitoso. ¡Bienvenido a VitaMind!");
+            console.log("Registro exitoso:", formData);
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+            }
             localStorage.removeItem('signUpFormData');
-            navigate('/sign-up');
+            navigate('/');
         } catch (error) {
             console.error("Error:", error);
             setErrorMessage(error.message);
@@ -210,6 +229,8 @@ const SignUp = () => {
                         size="small"
                         value={formData.phoneNumber}
                         onChange={handleChange}
+                        error={!!phoneError}
+                        helperText={phoneError}
                         required
                     />
                     <TextField

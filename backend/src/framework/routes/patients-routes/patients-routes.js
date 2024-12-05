@@ -11,8 +11,4 @@ router.get('/patients/:patientId', function (req, res) {
  patientController.getPatient(req, res)
 });
 
-router.post('/patients', function (req, res) {
- patientController.createPatient(req, res)
-});
-
 export default router;

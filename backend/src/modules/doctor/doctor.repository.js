@@ -13,8 +13,8 @@ class DoctorRepository {
         return await this.doctorModel.findByPk(id);
     }
   
-    async findByEspecialty(especialty) {
-        return await this.doctorModel.findOne({ where: { especialty } });
+    async findBySpecialty(specialty) {
+        return await this.doctorModel.findOne({ where: { specialty } });
     }
   
     async create(doctorData) {
