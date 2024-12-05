@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', apiRoutes);
 
-sequelize.sync({ force: false })
+sequelize.sync({ force: true })
     .then(() => {
         console.log('Base de datos sincronizada');
         app.listen(config.port , () => {

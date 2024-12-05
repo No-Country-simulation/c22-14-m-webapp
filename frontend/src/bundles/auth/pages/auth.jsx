@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Link, Container, TextField, Typography, Box, useTheme, useMediaQuery } from '../../common/components/components';
 import { useNavigate } from 'react-router-dom';
 import { SIGN_IN } from '../../../settings';
@@ -6,7 +6,7 @@ import { SIGN_IN } from '../../../settings';
 const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState();
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const theme = useTheme();

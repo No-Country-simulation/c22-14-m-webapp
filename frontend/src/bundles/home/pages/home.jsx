@@ -1,44 +1,222 @@
-import { Button, Typography, Container, Link } from "../../common/components/components"
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { AppRoute } from '../../common/constants/constants'
+import {
+  Typography, Box, Card, CardContent, useTheme,
+  useMediaQuery, Container, Button
+} from "../../common/components/components"
+import { ClipboardList, Brain, UserRound, Heart } from 'lucide-react'
+import NavBar from '../../common/components/navbar'
+
 
 const Home = () => {
-  const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMedium = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+  const isLarge = useMediaQuery(theme.breakpoints.between('md', 'lg'));
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setIsLoggedIn(true);
-    } else {
-      navigate('/sign-in', { replace: true });
+  const cardData = [
+    {
+      icon: <ClipboardList size={80} color="#3F51B5" />,
+      title: "Nutrición",
+      description: "De la mano del Centro de Nutrición Clínica (CNC), ofrecemos servicios de nutrición personalizados para nuestros pacientes. Nuestro enfoque es la alimentación saludable, la pérdida de peso, la nutrición clínica, entre otras etapas importantes de los usuarios como lo es el embarazo, el deporte, los niños y adolescentes."
+    },
+    {
+      icon: <Brain size={80} color="#3F51B5" />,
+      title: "Psicología",
+      description: "De la mano del Centro de Nutrición Clínica (CNC), ofrecemos servicios de nutrición personalizados para nuestros pacientes. Nuestro enfoque es la alimentación saludable, la pérdida de peso, la nutrición clínica, entre otras etapas importantes de los usuarios como lo es el embarazo, el deporte, los niños y adolescentes."
+    },
+    {
+      icon: <UserRound size={80} color="#3F51B5" />,
+      title: "Psiquiatría",
+      description: "De la mano del Centro de Nutrición Clínica (CNC), ofrecemos servicios de nutrición personalizados para nuestros pacientes. Nuestro enfoque es la alimentación saludable, la pérdida de peso, la nutrición clínica, entre otras etapas importantes de los usuarios como lo es el embarazo, el deporte, los niños y adolescentes."
+    },
+    {
+      icon: <Heart size={80} color="#3F51B5" />,
+      title: "Medicina General",
+      description: "De la mano del Centro de Nutrición Clínica (CNC), ofrecemos servicios de nutrición personalizados para nuestros pacientes. Nuestro enfoque es la alimentación saludable, la pérdida de peso, la nutrición clínica, entre otras etapas importantes de los usuarios como lo es el embarazo, el deporte, los niños y adolescentes."
     }
-  }, [navigate]);
+  ];
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setIsLoggedIn(false);
-    navigate('/sign-in', { replace: true });
+  const FIRST_SECTION_STYLES = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    bgcolor: '#fff',
+    py: { xs: 2, sm: 3, md: 4 }
   };
 
-  if (!isLoggedIn) {
-    navigate('/sign-in', { replace: true });
-    return null;
-  }
+  const IMAGE_CONTAINER_STYLES = {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    mb: { xs: 2, sm: 3, md: 4 }
+  };
+
+  const CONTENT_STYLES = {
+    textAlign: 'center',
+    width: '100%',
+    px: { xs: 2, sm: 3, md: 4 }
+  };
+
+  const TITLE_COMPANY_STYLES = {
+    color: '#000',
+    mb: { xs: 1, sm: 1.5, md: 2 },
+    fontWeight: 'bold',
+    fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' }
+  };
+
+  const DESCRIPTION_COMPANY_STYLES = {
+    color: '#333',
+    mb: { xs: 2, sm: 3, md: 4 },
+    fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+    lineHeight: 1.6
+  };
+
+  const BUTTON_CONTAINER_STYLES = {
+    display: 'flex',
+    gap: { xs: 1, sm: 2 },
+    justifyContent: 'center',
+    flexWrap: 'wrap'
+  };
+
+  const buttonStyles = {
+    px: { xs: 2, sm: 3, md: 4 },
+    py: { xs: 1, sm: 1.25, md: 1.5 },
+    fontSize: { xs: '0.8rem', sm: '0.9rem', md: '1rem' }
+  };
+
+  const CONTAINER_STYLES = {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: isSmall ? '16px' : (isMedium ? '24px' : (isLarge ? '32px' : '40px')),
+    padding: isSmall ? '24px' : (isMedium ? '24px' : (isLarge ? '32px' : '40px')),
+    backgroundColor: '#E6E6FA'
+  };
+
+  const GRID_CONTAINER_STYLES = {
+    display: 'grid',
+    gridTemplateColumns: {
+      xs: '1fr',
+      sm: 'repeat(2, 1fr)',
+    },
+    gap: isSmall ? 2 : (isMedium || isLarge ? 10 : 10),
+    maxWidth: 'lg',
+  };
+
+  const CARD_STYLES = {
+    flexBasis: isSmall
+      ? '100%'
+      : (isMedium
+        ? 'calc(50% - 12px)'
+        : (isLarge
+          ? 'calc(50% - 16px)'
+          : 'calc(25% - 30px)')),
+    display: 'flex',
+    flexDirection: 'column',
+    borderRadius: '16px',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    '&:hover': {
+      transform: 'translateY(-4px)',
+      transition: 'transform 0.3s ease-in-out'
+    }
+  };
+
+  const CARD_CONTENT_STYLES = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
+    flex: 1
+  };
+
+  const TITLE_STYLES = {
+    color: '#272FC1',
+    paddingTop: isSmall ? 2 : 3,
+    paddingBottom: isSmall ? 2 : 3,
+    fontWeight: 'bold',
+    fontSize: isSmall ? "16px" : isMedium ? "18px" : "20px",
+  };
+
+  const DESCRIPTION_STYLES = {
+    color: '#333',
+    fontSize: isSmall ? "14px" : isMedium ? "16px" : "18px",
+    lineHeight: 1.6,
+  };
 
   return (
-    <Container maxWidth="sm" style={{ marginTop: '50px' }}>
-      <Link underline="none" href={AppRoute.SIGN_UP}>Registrarse</Link>
-      <Link underline="none" href={AppRoute.SIGN_IN}>Iniciar Sesión</Link>
-      <Typography variant="body1">
-        Bienvenido al portal del paciente. Aquí puedes acceder a tu información.
-      </Typography>
-      <Button variant="contained" color="primary" onClick={handleLogout} style={{ marginTop: '20px' }}>
-        Cerrar Sesión
-      </Button>
-    </Container>
-  );
-};
+    <Box>
+      {/* Sección 1: Image  */}
+      <Box sx={FIRST_SECTION_STYLES}>
+        <Container>
+          <Box sx={IMAGE_CONTAINER_STYLES}>
+            IMAGEN
+          </Box>
 
-export { Home }
+          <Box sx={CONTENT_STYLES}>
+            <Typography variant="h1" sx={TITLE_COMPANY_STYLES}>
+              VitaMind
+            </Typography>
+
+            <Typography sx={DESCRIPTION_COMPANY_STYLES}>
+              En VitaMind, transformamos la manera de cuidar tu
+              salud. Somos líderes en servicios de telemedicina, conectando a
+              pacientes con médicos altamente calificados a través de tecnología
+              segura y avanzada. Nuestra misión es brindarte atención médica
+              rápida, confiable y accesible, estés donde estés. Creemos en la
+              comodidad sin comprometer la calidad, ofreciendo soluciones
+              personalizadas para tu bienestar. Tu salud, nuestra prioridad.
+            </Typography>
+
+            <Box sx={BUTTON_CONTAINER_STYLES}>
+              <Button
+                variant="contained"
+                sx={{
+                  ...buttonStyles,
+                  bgcolor: '#3f51b5',
+                  '&:hover': { bgcolor: '#303f9f' }
+                }}
+              >
+                Conócenos
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{
+                  ...buttonStyles,
+                  borderColor: '#3f51b5',
+                  color: '#3f51b5',
+                  '&:hover': {
+                    borderColor: '#303f9f',
+                    bgcolor: 'rgba(63, 81, 181, 0.04)'
+                  }
+                }}
+              >
+                ¡Agenda tu Cita!
+              </Button>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* Sección 2: Cards */}
+      <Box sx={CONTAINER_STYLES}>
+        <Box sx={GRID_CONTAINER_STYLES}>
+          {cardData.map((card, index) => (
+            <Card key={index} sx={CARD_STYLES}>
+              <CardContent sx={CARD_CONTENT_STYLES}>
+                {card.icon}
+                <Typography variant="h6" component="h2" sx={TITLE_STYLES}>
+                  {card.title}
+                </Typography>
+                <Typography sx={DESCRIPTION_STYLES}>
+                  {card.description}
+                </Typography>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      </Box>
+    </Box>
+  )
+}
+
+export {Home};

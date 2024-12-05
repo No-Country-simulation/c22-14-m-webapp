@@ -1,3 +1,5 @@
+import { isValid, parse } from 'date-fns';
+
 const validateDoctor = (data) => {
     if (!data.specialty) {
       return "La especialidad es requerida";
@@ -16,6 +18,10 @@ const validateDoctor = (data) => {
     if (phoneNumber.length !== 9) {
       return "Formato de número de teléfono inválido";
     }
+
+    if (!isValid(new Date(birthDate)) || new Date(birthDate) > new Date()) {
+        return 'Formato de fecha inválido';
+    }
     return null;
   };
   
@@ -28,7 +34,7 @@ const validateDoctor = (data) => {
   
   const createUserValid = (req, res, next) => {
     const { firstName, lastName, email, password, role, ...extraFields } = req.body;
-  
+    
     if (!email || !password || !firstName || !lastName || !role) {
       return res.status(400).json({ error: true, message: "Debe llenar todos los campos" });
     }
@@ -38,7 +44,7 @@ const validateDoctor = (data) => {
     }
   
     if (password.length < 8) {
-      return res.status(400).json({ error: true, message: "Password must have at least 3 characters." });
+      return res.status(400).json({ error: true, message: "La contraseña debe tener al menos 6 caracteres" });
     }
   
     let roleError = null;
