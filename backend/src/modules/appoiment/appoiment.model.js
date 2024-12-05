@@ -1,6 +1,5 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/db/index.js';
-import { Patient } from '../patient/patient.model.js';
 
 const Appoiment = sequelize.define('appoiment', {
     id: {
@@ -23,6 +22,5 @@ Appoiment.associate = (models) => {
     Appoiment.belongsTo(models.Doctor, { onDelete: 'CASCADE' });
     Appoiment.belongsTo(models.Patient, { onDelete: 'CASCADE' });
 };
-
 
 export { Appoiment };

@@ -34,12 +34,6 @@ erDiagram
         datetime createdAt
         datetime updatedAt
     }
-    ROLES {
-        int id PK
-        string name
-        datetime createdAt
-        datetime updatedAt
-    }
     DOCTORS {
         int id PK, FK
         string specialty
@@ -82,7 +76,6 @@ erDiagram
         datetime updatedAt
     }
 
-    USERS ||--o| ROLES : "has role"
     USERS ||--o| DOCTORS : "is doctor"
     USERS ||--o| PATIENTS : "is patient"
     USERS ||--o| ADMINS : "is admin"
