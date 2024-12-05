@@ -44,7 +44,7 @@ const validateDoctor = (data) => {
     }
   
     if (password.length < 8) {
-      return res.status(400).json({ error: true, message: "Lacontraseña debe tener al menos 6 caracteres" });
+      return res.status(400).json({ error: true, message: "La contraseña debe tener al menos 6 caracteres" });
     }
   
     let roleError = null;
