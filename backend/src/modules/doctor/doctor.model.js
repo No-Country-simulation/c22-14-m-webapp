@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/db/index.js';
 
 const Doctor = sequelize.define('doctor', {
-    especialty: {
+    specialty: {
         type: DataTypes.STRING,
         allowNull: true,
     },
