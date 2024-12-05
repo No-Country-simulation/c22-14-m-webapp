@@ -48,6 +48,8 @@ const Home = () => {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',  
+    overflow: 'hidden',
     mb: { xs: 2, sm: 3, md: 4 }
   };
 
@@ -150,7 +152,11 @@ const Home = () => {
       <Box sx={FIRST_SECTION_STYLES}>
         <Container>
           <Box sx={IMAGE_CONTAINER_STYLES}>
-            IMAGEN
+            <img
+              src="/src/image/home.webp"
+              alt="Descripción de la imagen"
+              style={{ width: '50%', height: 'auto', objectFit: 'cover' }}
+            />
           </Box>
 
           <Box id="about-us" sx={CONTENT_STYLES}>
