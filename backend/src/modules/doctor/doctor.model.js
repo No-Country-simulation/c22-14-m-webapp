@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/db/index.js';
 
 const Doctor = sequelize.define('doctor', {
-    especialty: {
+    specialty: {
         type: DataTypes.STRING,
         allowNull: true,
     },
@@ -16,6 +16,7 @@ const Doctor = sequelize.define('doctor', {
 
 Doctor.associate = (models) => {
     Doctor.belongsTo(models.User, { onDelete: 'CASCADE' });
+    Doctor.hasMany (models.Appoiment, { onDelete: 'CASCADE' } );
   };
 
 export { Doctor };

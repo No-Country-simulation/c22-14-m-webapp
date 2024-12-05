@@ -1,8 +1,74 @@
 import { Box, Button, Container, TextField, Typography } from '@mui/material';
+import { useState } from 'react';
+import { HISTORY_MEDICAL } from '../../../settings';
 
 const HistoryMedical = () => {
-  const handleSubmit = (event) => {
+  const [formData, setFormData] = useState({
+    consultation: '',
+    diagnosis: '',
+    treatment: '',
+  });
+  console.log(formData);
+
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.consultation.trim()) {
+      newErrors.consultation = 'El motivo de consulta es requerido.';
+    }
+    if (!formData.diagnosis.trim()) {
+      newErrors.diagnosis = 'El diagnóstico es requerido.';
+    }
+    if (!formData.treatment.trim()) {
+      newErrors.treatment = 'El tratamiento es requerido.';
+    }
+    return newErrors;
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    setErrors({});
+
+    try {
+      const response = await fetch(HISTORY_MEDICAL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al guardar los datos.');
+      }
+
+      // const result = await response.json();
+      // console.log(result);
+
+      alert('Expediente guardado con éxito.');
+      setFormData({
+        consultation: '',
+        diagnosis: '',
+        treatment: '',
+      });
+    } catch (error) {
+      console.error(error);
+      alert('Hubo un problema al guardar el expediente.');
+    }
   };
 
   return (
@@ -35,12 +101,16 @@ const HistoryMedical = () => {
               name="consultation"
               type="text"
               placeholder="Descripción del motivo por el cual consulta"
-              // value={formData.correo}
-              // onChange={handleChange}
+              value={formData.consultation}
+              onChange={handleChange}
+              error={Boolean(errors.consultation)}
+              helperText={errors.consultation}
               variant="outlined"
               sx={{
-                backgroundColor: 'white',
-                borderRadius: 2,
+                '& .MuiInputBase-root': {
+                  backgroundColor: 'white',
+                  borderRadius: 2,
+                },
               }}
             />
           </Box>
@@ -56,12 +126,16 @@ const HistoryMedical = () => {
               name="diagnosis"
               type="text"
               placeholder="Indicaciones de reposo y/o medicación"
-              // value={formData.correo}
-              // onChange={handleChange}
+              value={formData.diagnosis}
+              onChange={handleChange}
+              error={Boolean(errors.diagnosis)}
+              helperText={errors.diagnosis}
               variant="outlined"
               sx={{
-                backgroundColor: 'white',
-                borderRadius: 2,
+                '& .MuiInputBase-root': {
+                  backgroundColor: 'white',
+                  borderRadius: 2,
+                },
               }}
             />
           </Box>
@@ -77,12 +151,16 @@ const HistoryMedical = () => {
               name="treatment"
               type="text"
               placeholder="Ejemplo: Paracetamol"
-              // value={formData.correo}
-              // onChange={handleChange}
+              value={formData.treatment}
+              onChange={handleChange}
+              error={Boolean(errors.treatment)}
+              helperText={errors.treatment}
               variant="outlined"
               sx={{
-                backgroundColor: 'white',
-                borderRadius: 2,
+                '& .MuiInputBase-root': {
+                  backgroundColor: 'white',
+                  borderRadius: 2,
+                },
               }}
             />
           </Box>

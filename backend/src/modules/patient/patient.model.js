@@ -1,6 +1,5 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/db/index.js';
-import { Doctor } from '../doctor/doctor.model.js';
 
 const Patient = sequelize.define('patient', {
     address: {
@@ -11,7 +10,7 @@ const Patient = sequelize.define('patient', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    brirtDate: {
+    birthDate: {
         type: DataTypes.DATE,
         allowNull: false,
     },
@@ -26,6 +25,7 @@ const Patient = sequelize.define('patient', {
 
 Patient.associate = (models) => {
     Patient.belongsTo(models.User, { onDelete: 'CASCADE' });
+    Patient.hasMany(models.Appoiment, { onDelete: 'CASCADE' });
 };
 
 export { Patient };
