@@ -145,6 +145,7 @@ const Home = () => {
 
   return (
     <Box>
+      <NavBar />
       {/* Sección 1: Image  */}
       <Box sx={FIRST_SECTION_STYLES}>
         <Container>
@@ -152,7 +153,7 @@ const Home = () => {
             IMAGEN
           </Box>
 
-          <Box sx={CONTENT_STYLES}>
+          <Box id="about-us" sx={CONTENT_STYLES}>
             <Typography variant="h1" sx={TITLE_COMPANY_STYLES}>
               VitaMind
             </Typography>
@@ -198,7 +199,7 @@ const Home = () => {
       </Box>
 
       {/* Sección 2: Cards */}
-      <Box sx={CONTAINER_STYLES}>
+      <Box id="services" sx={CONTAINER_STYLES}>
         <Box sx={GRID_CONTAINER_STYLES}>
           {cardData.map((card, index) => (
             <Card key={index} sx={CARD_STYLES}>
@@ -219,4 +220,4 @@ const Home = () => {
   )
 }
 
-export {Home};
+export { Home };
