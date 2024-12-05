@@ -1,13 +1,15 @@
 import { Router } from 'express';
 import userRoutes from './user-routes/user-routes.js';
 import patientsRoutes from './patients-routes/patients-routes.js';
-import appointmentRoutes from './appointment-routes/appointment-routes.js';
+import recordRoutes from './records-routes/records-routes.js';
+import doctorsRoutes from './doctors-routes/doctors-routes.js';
 
 const apiRoutes = Router();
 
-apiRoutes.use(userRoutes);
-apiRoutes.use(patientsRoutes);
-apiRoutes.use(appointmentRoutes);
+apiRoutes.use("/user",userRoutes);
+apiRoutes.use("/patient",patientsRoutes);
+apiRoutes.use("/record",recordRoutes);
+apiRoutes.use("/doctors",doctorsRoutes); 
 
 
-export default apiRoutes;
+export { apiRoutes };

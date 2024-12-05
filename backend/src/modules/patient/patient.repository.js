@@ -1,3 +1,5 @@
+//controla la iteraccion directa con la base de datos
+
 class PatientRepository {
     constructor(patientModel) {
         this.patientModel = patientModel;
@@ -12,9 +14,9 @@ class PatientRepository {
     }
 
     async create(patientData) {
+        console.log("hola!!!!", patientData)
         return await this.patientModel.create(patientData);
     }
 }
-
 
 export { PatientRepository };

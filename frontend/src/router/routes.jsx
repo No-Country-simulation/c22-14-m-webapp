@@ -3,7 +3,9 @@ import { Auth } from '../bundles/auth/pages/auth';
 import { SignUp } from '../bundles/auth/pages/signUp';
 import { ProtectedRoute } from '../bundles/common/components/components';
 import { AppRoute } from '../bundles/common/constants/constants';
+import HistoryMedical from '../bundles/home/pages/history-medical';
 import { Home } from '../bundles/home/pages/home';
+import { AppoimentRequest } from '../bundles/auth/pages/appointmentRequest';
 
 const routes = [
     {
@@ -19,12 +21,20 @@ const routes = [
                 element: <SignUp />,
             },
             {
+                path: AppRoute.FEAT_APPOIMENT,  
+                element: <AppoimentRequest />,
+            },
+            {
                 path: AppRoute.ROOT,
                 element: (
                     <ProtectedRoute>
                         <Home />
                     </ProtectedRoute>
                 ),
+            },
+            {
+                path: AppRoute.HISTORY_MEDICAL,
+                element: <HistoryMedical />,
             },
             // {
             //     path: AppRoute.ANY,

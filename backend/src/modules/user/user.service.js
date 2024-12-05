@@ -1,5 +1,8 @@
 import bcrypt from 'bcrypt';
 import { tokenService } from '../../common/services/services.js';
+import { doctorRepository } from '../doctor/doctor.js';
+import { patientRepository } from '../patient/patient.js';
+import { adminRepository } from '../admin/admin.js';
 
 class UserService {
     constructor(userRepository) {
@@ -22,19 +25,56 @@ class UserService {
         return user;
     }
 
-    async registerUser(userData) {
-        const { password, email } = userData;
+    async getAllDoctors() {
+        const doctors = await this.userRepository.findDoctors();
+        if (!doctors) {
+            throw new Error('No hay doctores registrados');
+        }
+        return doctors;
+    }
 
+    async getAllPatients() {
+        const patients = await this.userRepository.findDoctors(id);
+        if (!doctors) {
+            throw new Error('No hay doctores registrados');
+        }
+        return patient;
+    }
+
+    async registerUser(userData) {
+        const { firstName, lastName, role, password, email, ...additionalInfo } = userData;
+        
         const existingUser = await this.userRepository.findByEmail(email);
         if (existingUser) {
             throw new Error('El email ya está registrado');
         }
-
+        
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await this.userRepository.create({
-            ...userData,
+            firstName,
+            lastName,
+            role,
+            email,
             password: hashedPassword,
         });
+        
+        if(role === 'doctor') {
+            const newDoctor = await doctorRepository.create({
+                ...additionalInfo,
+                userId: newUser.id
+            });
+        } else if ( role === 'patient') {
+            const newPatient = await patientRepository.create({
+                ...additionalInfo,
+                userId: newUser.id
+            });
+        } else if (role === 'admin') {
+            const newAdmin = await adminRepository.create({
+                ...additionalInfo,
+                userId: newUser.id
+            });
+        }
+        
         const token = await tokenService.createToken(newUser.id);
 
         return { token };
