@@ -1,6 +1,6 @@
 import {
   Typography, Box, Card, CardContent, useTheme,
-  useMediaQuery, Container, Button
+  useMediaQuery, Button
 } from "../../common/components/components"
 import { ClipboardList, Brain, UserRound, Heart } from 'lucide-react'
 import NavBar from '../../common/components/navbar'
@@ -46,6 +46,11 @@ const Home = () => {
 
   const IMAGE_CONTAINER_STYLES = {
     width: '100%',
+    height: {
+      xs: '40vh',
+      sm: '60vh',
+      md: '80vh',
+    },
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',  
@@ -150,12 +155,12 @@ const Home = () => {
       <NavBar />
       {/* Sección 1: Image  */}
       <Box sx={FIRST_SECTION_STYLES}>
-        <Container>
+        <Box>
           <Box sx={IMAGE_CONTAINER_STYLES}>
             <img
-              src="/src/image/home.webp"
+              src="/src/image/home.jpg"
               alt="Descripción de la imagen"
-              style={{ width: '50%', height: 'auto', objectFit: 'cover' }}
+              style={{ width: '100%', height: 'auto', objectFit: 'cover', objectPosition: 'top center'}}
             />
           </Box>
 
@@ -201,7 +206,7 @@ const Home = () => {
               </Button>
             </Box>
           </Box>
-        </Container>
+        </Box>
       </Box>
 
       {/* Sección 2: Cards */}
