@@ -1,16 +1,71 @@
-import {
-  Box,
-  Button,
-  Container,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Container, TextField, Typography } from '@mui/material';
+import { useState } from 'react';
+import { HISTORY_MEDICAL } from '../../../settings';
 
 const HistoryMedical = () => {
-  const handleSubmit = (event) => {
+  const [formData, setFormData] = useState({
+    consultation: '',
+    diagnosis: '',
+    treatment: '',
+  });
+  console.log(formData);
+
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.consultation.trim()) {
+      newErrors.consultation = 'El motivo de consulta es requerido.';
+    }
+    if (!formData.diagnosis.trim()) {
+      newErrors.diagnosis = 'El diagnóstico es requerido.';
+    }
+    if (!formData.treatment.trim()) {
+      newErrors.treatment = 'El tratamiento es requerido.';
+    }
+    return newErrors;
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    setErrors({});
+
+    try {
+      const response = await fetch(HISTORY_MEDICAL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al guardar los datos.');
+      }
+
+      alert('Expediente guardado con éxito.');
+      setFormData({
+        consultation: '',
+        diagnosis: '',
+        treatment: '',
+      });
+    } catch (error) {
+      console.error(error);
+      alert('Hubo un problema al guardar el expediente.');
+    }
   };
 
   return (
@@ -23,7 +78,7 @@ const HistoryMedical = () => {
       }}
     >
       <Container component="div" maxWidth="sm">
-        <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
+        <Typography component="h1" variant="h4" sx={{ textAlign: 'center' }}>
           Historial Médico
         </Typography>
         <Box
@@ -33,131 +88,6 @@ const HistoryMedical = () => {
           sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 3 }}
         >
           <Box component="div">
-            <Typography variant="subtitle1" gutterBottom>
-              Nombres
-            </Typography>
-            <TextField
-              fullWidth
-              name="name"
-              type="text"
-              placeholder="Jane"
-              // value={formData.correo}
-              // onChange={handleChange}
-              variant="outlined"
-              sx={{
-                backgroundColor: 'white',
-                borderRadius: 2,
-              }}
-            />
-          </Box>
-
-          <Box component="div">
-            <Typography variant="subtitle1" sx={{ pb: 1 }}>
-              Apellidos
-            </Typography>
-            <TextField
-              fullWidth
-              name="lastname"
-              type="text"
-              placeholder="Doe"
-              // value={formData.correo}
-              // onChange={handleChange}
-              variant="outlined"
-              sx={{
-                backgroundColor: 'white',
-                borderRadius: 2,
-              }}
-            />
-          </Box>
-
-          <Box component="div">
-            <Typography variant="subtitle1" sx={{ pb: 1 }}>
-              Género
-            </Typography>
-            <Select
-              // value={gender}
-              // onChange={handleChange}
-              fullWidth
-              value=""
-              variant="outlined"
-              displayEmpty
-              // inputProps={{ 'aria-label': 'Without label' }}
-              sx={{
-                backgroundColor: 'white',
-                borderRadius: 2,
-              }}
-            >
-              <MenuItem value="">Género</MenuItem>
-              <MenuItem value="man">Masculino</MenuItem>
-              <MenuItem value="woman">Femenino</MenuItem>
-              <MenuItem value="no-gender">Prefiero no decirlo</MenuItem>
-            </Select>
-          </Box>
-
-          <Box
-            component="div"
-            sx={{ display: 'flex', justifyContent: 'space-between' }}
-          >
-            <Box component="div">
-              <Typography variant="subtitle1" sx={{ pb: 1 }}>
-                DNI
-              </Typography>
-              <TextField
-                fullWidth
-                name="dni"
-                type="text"
-                placeholder="1234567"
-                // value={formData.correo}
-                // onChange={handleChange}
-                variant="outlined"
-                sx={{
-                  backgroundColor: 'white',
-                  borderRadius: 2,
-                }}
-              />
-            </Box>
-            <Box component="div">
-              <Typography variant="subtitle1" sx={{ pb: 1 }}>
-                Tipo de Sangre
-              </Typography>
-              <TextField
-                fullWidth
-                name="blood"
-                type="text"
-                placeholder="A+"
-                // value={formData.correo}
-                // onChange={handleChange}
-                variant="outlined"
-                sx={{
-                  backgroundColor: 'white',
-                  borderRadius: 2,
-                }}
-              />
-            </Box>
-          </Box>
-
-          <Box component="div">
-            <Typography variant="subtitle1" sx={{ pb: 1 }}>
-              Alergias
-            </Typography>
-            <TextField
-              fullWidth
-              multiline
-              rows={4}
-              name="allergy"
-              type="text"
-              placeholder="No puedo tomar cierto medicamento me genera brotes"
-              // value={formData.correo}
-              // onChange={handleChange}
-              variant="outlined"
-              sx={{
-                backgroundColor: 'white',
-                borderRadius: 2,
-              }}
-            />
-          </Box>
-
-          <Box component="div">
             <Typography variant="subtitle1" sx={{ pb: 1 }}>
               Motivo de Consulta
             </Typography>
@@ -165,36 +95,19 @@ const HistoryMedical = () => {
               fullWidth
               multiline
               rows={4}
-              name="reason"
+              name="consultation"
               type="text"
               placeholder="Descripción del motivo por el cual consulta"
-              // value={formData.correo}
-              // onChange={handleChange}
+              value={formData.consultation}
+              onChange={handleChange}
+              error={Boolean(errors.consultation)}
+              helperText={errors.consultation}
               variant="outlined"
               sx={{
-                backgroundColor: 'white',
-                borderRadius: 2,
-              }}
-            />
-          </Box>
-
-          <Box component="div">
-            <Typography variant="subtitle1" sx={{ pb: 1 }}>
-              Medicamentos
-            </Typography>
-            <TextField
-              fullWidth
-              multiline
-              rows={4}
-              name="drugs"
-              type="text"
-              placeholder="Ejemplo: Paracetamol"
-              // value={formData.correo}
-              // onChange={handleChange}
-              variant="outlined"
-              sx={{
-                backgroundColor: 'white',
-                borderRadius: 2,
+                '& .MuiInputBase-root': {
+                  backgroundColor: 'white',
+                  borderRadius: 2,
+                },
               }}
             />
           </Box>
@@ -207,15 +120,44 @@ const HistoryMedical = () => {
               fullWidth
               multiline
               rows={4}
-              name="diagnostic"
+              name="diagnosis"
               type="text"
               placeholder="Indicaciones de reposo y/o medicación"
-              // value={formData.correo}
-              // onChange={handleChange}
+              value={formData.diagnosis}
+              onChange={handleChange}
+              error={Boolean(errors.diagnosis)}
+              helperText={errors.diagnosis}
               variant="outlined"
               sx={{
-                backgroundColor: 'white',
-                borderRadius: 2,
+                '& .MuiInputBase-root': {
+                  backgroundColor: 'white',
+                  borderRadius: 2,
+                },
+              }}
+            />
+          </Box>
+
+          <Box component="div">
+            <Typography variant="subtitle1" sx={{ pb: 1 }}>
+              Tratamiento
+            </Typography>
+            <TextField
+              fullWidth
+              multiline
+              rows={4}
+              name="treatment"
+              type="text"
+              placeholder="Ejemplo: Paracetamol"
+              value={formData.treatment}
+              onChange={handleChange}
+              error={Boolean(errors.treatment)}
+              helperText={errors.treatment}
+              variant="outlined"
+              sx={{
+                '& .MuiInputBase-root': {
+                  backgroundColor: 'white',
+                  borderRadius: 2,
+                },
               }}
             />
           </Box>
