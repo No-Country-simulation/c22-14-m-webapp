@@ -40,7 +40,7 @@ const Home = () => {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    bgcolor: '#fff',
+    backgroundColor: '#fff',
     py: { xs: 2, sm: 3, md: 4 }
   };
 
@@ -55,27 +55,40 @@ const Home = () => {
     justifyContent: 'center',
     alignItems: 'center',  
     overflow: 'hidden',
-    mb: { xs: 2, sm: 3, md: 4 }
+    '& > img': {
+    width: '100%',
+    height: 'auto',
+    objectFit: 'cover',
+    objectPosition: 'top center',
+  }
   };
 
   const CONTENT_STYLES = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
     textAlign: 'center',
     width: '100%',
-    px: { xs: 2, sm: 3, md: 4 }
+    px: { xs: 2, sm: 6, md: 8  , lg: 10}, 
+    py: { xs: 2, sm: 6, md: 8 , lg: 10 },
+ 
   };
 
   const TITLE_COMPANY_STYLES = {
     color: '#000',
-    mb: { xs: 1, sm: 1.5, md: 2 },
     fontWeight: 'bold',
     fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' }
   };
 
   const DESCRIPTION_COMPANY_STYLES = {
     color: '#333',
-    mb: { xs: 2, sm: 3, md: 4 },
+    paddingBottom: { xs: 2, sm: 3, md: 4, lg:6 },
     fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
-    lineHeight: 1.6
+    lineHeight: 1.6,
+    width: '66%',
+    textAlign: 'justify',
+    paddingTop:{ xs: 2, sm: 3, md: 4, lg:6 },
   };
 
   const BUTTON_CONTAINER_STYLES = {
@@ -160,7 +173,6 @@ const Home = () => {
             <img
               src="/src/image/home.jpg"
               alt="Descripción de la imagen"
-              style={{ width: '100%', height: 'auto', objectFit: 'cover', objectPosition: 'top center'}}
             />
           </Box>
 
