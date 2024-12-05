@@ -56,9 +56,6 @@ const HistoryMedical = () => {
         throw new Error('Error al guardar los datos.');
       }
 
-      // const result = await response.json();
-      // console.log(result);
-
       alert('Expediente guardado con éxito.');
       setFormData({
         consultation: '',
