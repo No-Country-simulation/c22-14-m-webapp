@@ -11,6 +11,7 @@ import {
     useMediaQuery,
     InputLabel,
     FormControl,
+    TextareaAutosize,
 } from '../../common/components/components.jsx';
 import { useNavigate } from 'react-router-dom';
 import { FEAT_APPOIMENT } from '../../../settings.js';
@@ -45,6 +46,7 @@ const AppoimentRequest = () =>{
         especialty: "",
         email: "",
         requiredDateTime: dayjs(""),
+        description:"",
     });
 
     const handleChange = (e) => {
@@ -153,6 +155,14 @@ const AppoimentRequest = () =>{
                         renderInput={(params) => <TextField {...params} />}
                     />
                     </LocalizationProvider>
+                    <TextareaAutosize
+                        aria-label="Describe el motivo de la consulta"
+                        value={formData.description}
+                        onChange={handleChange}
+                        name="description"
+                        required
+                    >    
+                    </TextareaAutosize>
                 </Box>
                 <Button sx={BUTTON_APPOIMENT_REQUEST_STYLES} 
                     type="submit"
