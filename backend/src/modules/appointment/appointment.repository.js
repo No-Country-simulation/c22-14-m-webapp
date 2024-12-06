@@ -2,7 +2,7 @@ import { Appointment } from "./appointment.model.js";
 import { Model } from "sequelize";
 
 /**
- * Repository component of the Appointment Entity
+ * Repository component of the Appointment Entity, calling the appropiate Sequelize functions
  */
 class AppointmentRepository {
     /**
@@ -15,8 +15,8 @@ class AppointmentRepository {
 
     /**
      * Create an appointment record
-     * @param {Appointment} appointmentData 
-     * @returns { Model }
+     * @param { Appointment } appointmentData The fields of the new data 
+     * @returns { Model } The model object of the saved Appointment record
      */
     async create(appointmentData) {
         return await this.appointmentModel.create(appointmentData);

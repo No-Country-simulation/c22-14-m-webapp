@@ -4,7 +4,7 @@ import { Doctor } from "../doctors/doctor.model.js";
 import { Patient } from "../patients/patient.model.js";
 
 /**
- * The medical appointment model
+ * The medical appointment model, reflecting the columns on the database
  */
 const Appointment = sequelize.define('appointment', {
     id: {
@@ -13,19 +13,35 @@ const Appointment = sequelize.define('appointment', {
         allowNull: false,
         defaultValue: DataTypes.UUIDV4
     },
-    patient_id: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        field: "patient_id"
+    patient_name: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
-    doctor_id: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        field: "doctor_id"
+    patient_phone: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
-    appointment_date: {
+    patient_email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            isEmail: true
+        }
+    },
+    specialty: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    date: {
         type: DataTypes.DATE,
         allowNull: false
+    },
+    hours: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    description: {
+        type: DataTypes.TEXT
     },
     status: {
         type: DataTypes.STRING(20),
@@ -34,25 +50,24 @@ const Appointment = sequelize.define('appointment', {
             is: /^(?:scheduled|completed|cancelled)/
         }
     },
-    notes: {
-        type: DataTypes.TEXT
-    }
 })
 
-Doctor.hasMany(Appointment, {
-    foreignKey: 'doctor_id',
-    type: DataTypes.UUID
-});
-Appointment.belongsTo(Doctor, {
-    foreignKey: 'doctor_id',
-});
-
-Patient.hasMany(Appointment, {
-    foreignKey: 'patient_id',
-    type: DataTypes.UUID
-});
-Appointment.belongsTo(Patient, {
-    foreignKey: 'patient_id',
-});
+/**
+ * Associate the required model (DOCTOR)
+ * @param {object} models An object with all models
+ * @param {Doctor} models.Doctor The doctor model
+ */
+Appointment.associate = (models) => {
+    Appointment.belongsTo(models.Doctor, {
+        foreignKey: 'doctor_id',
+        type: DataTypes.UUID,
+        onDelete: 'CASCADE'
+    })
+    models.Doctor.hasMany(Appointment, {
+        foreignKey: 'doctor_id',
+        type: DataTypes.UUID,
+        onDelete: 'CASCADE'
+    })
+}
 
 export { Appointment }

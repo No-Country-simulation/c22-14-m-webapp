@@ -1,8 +1,11 @@
 import { AppointmentService } from "./appointment.service.js";
 
+/**
+ * The Controller component of the Appointment entity, recieving and retrieving data from the Front-End
+ */
 class AppointmentController {
     /**
-     * 
+     * Start the Controller component of the Appointment entity
      * @param { AppointmentService } appointmentService 
      */
     constructor(appointmentService) {
@@ -10,9 +13,9 @@ class AppointmentController {
     }
 
     /**
-     * 
-     * @param {Request} req 
-     * @param {*} res 
+     * Schedule a new appointment
+     * @param {Request} req The Request object of Express
+     * @param {Response} res The Response object of Express
      */
     async schedule(req, res) {
         try {
