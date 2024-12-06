@@ -16,6 +16,7 @@
     "@mui/icons-material": "^6.1.7",
     "@mui/material": "^6.1.10",
     "@mui/x-date-pickers": "^7.23.0",
+    "@toolpad/core": "^0.10.0",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "lucide-react": "^0.465.0",

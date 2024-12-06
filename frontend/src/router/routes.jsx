@@ -6,6 +6,7 @@ import { AppRoute } from '../bundles/common/constants/constants';
 import HistoryMedical from '../bundles/home/pages/history-medical';
 import { Home } from '../bundles/home/pages/home';
 import { AppoimentRequest } from '../bundles/auth/pages/appointmentRequest';
+import { Dashboard } from '../bundles/dashboard/pages/dashboard';
 
 const routes = [
     {
@@ -35,6 +36,10 @@ const routes = [
             {
                 path: AppRoute.HISTORY_MEDICAL,
                 element: <HistoryMedical />,
+            },
+            {
+                path: AppRoute.DASHBOARD,
+                element: <Dashboard />,
             },
             // {
             //     path: AppRoute.ANY,
