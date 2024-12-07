@@ -6,6 +6,7 @@ import { AppoimentRequest } from '../../auth/pages/appointmentRequest';
 import { Auth } from '../../auth/pages/auth';
 import { SignUp } from '../../auth/pages/signUp';
 import HistoryMedical from '../pages/history-medical';
+import  Footer  from '../../common/components/footer';
 
 
 function Layout() {
@@ -20,6 +21,7 @@ function Layout() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/history-medical" element={<HistoryMedical />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
