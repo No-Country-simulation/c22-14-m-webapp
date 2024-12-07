@@ -29,7 +29,7 @@ const AppoimentRequest = () =>{
     const isLarge = useMediaQuery(theme.breakpoints.down('sm'));
 
 
-    const CONTAINER_APPOIMENT_REQUEST_STYLES = { "&": { padding: '0 3%' }, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '35%', background: '#ffffff', boxShadow: '5px 5px 15px rgba(0, 0, 0, 0.3)', borderRadius: '4%' }
+    const CONTAINER_APPOIMENT_REQUEST_STYLES = { "&": { padding: '0 3%' }, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '5%',marginBottom: '5%' ,width: '35%', background: '#ffffff', boxShadow: '5px 5px 15px rgba(0, 0, 0, 0.3)', borderRadius: '4%' }
     const BOX_APPOIMENT_REQUEST_STYLES = { display: 'flex', flexDirection: 'column', alignItems: 'center', width: '80%', paddingBottom: '18%' }
     const TYPOGRAPHY_APPOIMENT_REQUEST_STYLES = {display: 'flex', flexDirection: 'column',justifyContent: 'center', paddingTop: isSmall ? '10%' : '20%',textAlign: 'center',paddingBottom: '10%',color: '#bdbdbd','& .MuiTypography-root': { fontSize: isSmall ? '30px' : isMedium ? '33px' : isLarge ? '38px' : '38px',}}
     const TEXTFIELD_APPOIMENT_REQUEST_STYLES = {display: 'flex', flexDirection: 'column', alignItems: 'center', gap: isSmall ? '20px' : isMedium ? '30px' : '35px', width: '100%', paddingBottom: isSmall ? '10%' : '23%','& .MuiTextField-root': { width: '100%', '& .MuiOutlinedInput-root': { boxShadow: '0px 5px 20px #00000074' } },"& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "#E0E3E7" }, "&:hover fieldset": { borderColor: "#E0E3E7" }}}

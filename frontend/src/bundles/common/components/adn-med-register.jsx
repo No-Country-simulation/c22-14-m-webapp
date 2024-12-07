@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../../../css/register-medic-adn.css";
+import "../../../styles/register-medic-adn.css";
 
 import {
   TextField,

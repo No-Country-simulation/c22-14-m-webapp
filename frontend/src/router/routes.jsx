@@ -6,6 +6,7 @@ import { AppRoute } from '../bundles/common/constants/constants';
 import HistoryMedical from '../bundles/home/pages/history-medical';
 import { Home } from '../bundles/home/pages/home';
 import { AppoimentRequest } from '../bundles/auth/pages/appointmentRequest';
+import NavBar from '../bundles/common/components/navbar';
 
 const routes = [
     {
@@ -28,6 +29,7 @@ const routes = [
                 path: AppRoute.ROOT,
                 element: (
                     <ProtectedRoute>
+                        
                         <Home />
                     </ProtectedRoute>
                 ),
