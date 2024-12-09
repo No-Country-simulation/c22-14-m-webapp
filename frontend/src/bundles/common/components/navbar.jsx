@@ -1,365 +1,143 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
-
-const drawerWidth = 240;
-const publicNavItems = ['Nosotros', 'Servicios', '¡Agende su Cita!', 'Registrarme'];
-const medicNavItems = ['Nosotros', 'Panel de Medico', 'Perfil', 'Cerrar Sesión'];
-const adminNavItems = ['Nosotros', 'Panel de Administrador', 'Perfil', 'Cerrar Sesión'];
-const pacientNavItems = ['Nosotros', 'Servicios', '¡Agende su Cita!', 'Perfil', 'Cerrar Sesión'];
+import React from 'react';
+import { Link } from 'react-scroll';
+import {Link as LinkRouter} from 'react-router-dom'
+import "./../../../styles/navbar.css"
 
 
-function AppBarPublic(props) {
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
-  };
 
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
-      </Typography>
-      <Divider />
-      <List>
-        {publicNavItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
 
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar component="nav">
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            <Link to="/" sx={{ color: "#000000", textDecoration: 'none' }}>VitaMind</Link>
-          </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {publicNavItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
-              </Button>
-            ))}
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <nav>
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer}
-        </Drawer>
-      </nav>
-    </Box>
-  );
+export default function NavBar() {
+
+  // if (role === 'admin') {
+  //   return <NavBarAdmin />;
+  // } else if (role === 'doctor') {
+  //   return <NavBarDoctor />;
+  // } else if (role === 'patient') {
+  //   return <NavBarPatient />;
+  // }else {
+  //   return <NavBarPublic />
+  // }
+
+  return <NavBarPublic />
 }
 
+const NavBarPublic = () => (
+  
+    <>
+      <nav className="navbar navbar-expand-lg bg-body-tertiary nav-gen">
+        <div className="container-fluid" style={{ cursor: 'pointer'}}>
+          <LinkRouter className="navbar-brand ms-4"  to="/">VitaMind</LinkRouter>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div className="navbar-nav ms-auto gap-3 " >
+              <Link className="nav-Link active " aria-current="page" to="about-us" smooth="true" duration={500}>Nosotros</Link>
+              <Link className="nav-Link " to="services" smooth="true" duration={500} >Servicios</Link>
+              <LinkRouter className="nav-Link " to="/appoiment-request">¡Agenda tu Cita!</LinkRouter>
+              <LinkRouter className="nav-Link " to="/sign-up" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Registrarme
+              </LinkRouter>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </>
 
-function AppBarMedic(props) {
-    const { window } = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-  
-    const handleDrawerToggle = () => {
-      setMobileOpen((prevState) => !prevState);
-    };
-  
-    const drawer = (
-      <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-        <Typography variant="h6" sx={{ my: 2 }}>
-          MUI
-        </Typography>
-        <Divider />
-        <List>
-          {medicNavItems.map((item) => (
-            <ListItem key={item} disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }}>
-                <ListItemText primary={item} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Box>
-    );
-  
-    const container = window !== undefined ? () => window().document.body : undefined;
-  
-    return (
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <AppBar component="nav">
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' } }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-            >
-              MUI
-            </Typography>
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              {medicNavItems.map((item) => (
-                <Button key={item} sx={{ color: '#fff' }}>
-                  {item}
-                </Button>
-              ))}
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <nav>
-          <Drawer
-            container={container}
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-            sx={{
-              display: { xs: 'block', sm: 'none' },
-              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </nav>
-      </Box>
-    );
-  }
+);
 
-  function AppBarAdmin(props) {
-    const { window } = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+const NavBarPatient = () => (
   
-    const handleDrawerToggle = () => {
-      setMobileOpen((prevState) => !prevState);
-    };
-  
-    const drawer = (
-      <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-        <Typography variant="h6" sx={{ my: 2 }}>
-          MUI
-        </Typography>
-        <Divider />
-        <List>
-          {adminNavItems.map((item) => (
-            <ListItem key={item} disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }}>
-                <ListItemText primary={item} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Box>
-    );
-  
-    const container = window !== undefined ? () => window().document.body : undefined;
-  
-    return (
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <AppBar component="nav">
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' } }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-            >
-              MUI
-            </Typography>
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              {adminNavItems.map((item) => (
-                <Button key={item} sx={{ color: '#fff' }}>
-                  {item}
-                </Button>
-              ))}
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <nav>
-          <Drawer
-            container={container}
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-            sx={{
-              display: { xs: 'block', sm: 'none' },
-              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </nav>
-      </Box>
-    );
-  }
+  <>
+    <nav className="navbar navbar-expand-lg bg-body-tertiary nav-gen">
+      <div className="container-fluid">
+        <Link className="navbar-brand ms-4" to="#">VitaMind</Link>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="navbar-nav ms-auto">
+            <Link className="nav-Link active" aria-current="page" to="#">Nosotros</Link>
+            <Link className="nav-Link" to="#">Servicios</Link>
+            <LinkRouter className="nav-Link" to="#">¡Agenda tu Cita!</LinkRouter>
+          <li className="nav-item dropdown">
+            <LinkRouter className="nav-Link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Perfil
+            </LinkRouter>
+            <ul className="dropdown-menu text-start dropdown-menu-end">
+              <li><LinkRouter className="dropdown-item" to="/">Cerrar Sesion</LinkRouter></li>
+              
+            </ul>
+          </li>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </>
 
-  function AppBarPacient(props) {
-    const { window } = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+);
+
+const NavBarMedic = () => (
   
-    const handleDrawerToggle = () => {
-      setMobileOpen((prevState) => !prevState);
-    };
-  
-    const drawer = (
-      <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-        <Typography variant="h6" sx={{ my: 2 }}>
-          MUI
-        </Typography>
-        <Divider />
-        <List>
-          {pacientNavItems.map((item) => (
-            <ListItem key={item} disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }}>
-                <ListItemText primary={item} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Box>
-    );
-  
-    const container = window !== undefined ? () => window().document.body : undefined;
-  
-    return (
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <AppBar component="nav">
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' } }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-            >
-              MUI
-            </Typography>
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              {pacientNavItems.map((item) => (
-                <Button key={item} sx={{ color: '#fff' }}>
-                  {item}
-                </Button>
-              ))}
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <nav>
-          <Drawer
-            container={container}
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-            sx={{
-              display: { xs: 'block', sm: 'none' },
-              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </nav>
-      </Box>
-    );
-  }
+  <>
+    <nav className="navbar navbar-expand-lg bg-body-tertiary nav-gen">
+      <div className="container-fluid">
+        <Link className="navbar-brand ms-4" to="#">VitaMind</Link>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="navbar-nav ms-auto">
+            <Link className="nav-Link active" aria-current="page" to="#">Nosotros</Link>
+            <Link className="nav-Link" to="#">Servicios</Link>
+            <Link className="nav-Link" to="#">Panel de Medico</Link>
+          <li className="nav-item dropdown">
+            <LinkRouter className="nav-Link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Perfil
+            </LinkRouter>
+            <ul className="dropdown-menu text-start dropdown-menu-end">
+              <li><LinkRouter className="dropdown-item" to="/">Cerrar Sesion</LinkRouter></li>
+              
+            </ul>
+          </li>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </>
+
+);
 
 
+const NavBarAdmin = () => (
+  
+  <>
+    <nav className="navbar navbar-expand-lg bg-body-tertiary nav-gen">
+      <div className="container-fluid">
+        <Link className="navbar-brand ms-4" to="#">VitaMind</Link>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="navbar-nav ms-auto">
+            <Link className="nav-Link active" aria-current="page" to="#">Nosotros</Link>
+            <Link className="nav-Link" to="#">Servicios</Link>
+            <Link className="nav-Link" to="#">Panel de Administrador</Link>
+          <li className="nav-item dropdown">
+            <LinkRouter className="nav-Link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Perfil
+            </LinkRouter>
+            <ul className="dropdown-menu text-start dropdown-menu-end">
+              <li><LinkRouter className="dropdown-item" to="/">Cerrar Sesion</LinkRouter></li>
+              
+            </ul>
+          </li>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </>
 
-const NavBar = () => {
-
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBarPublic />
-      {/* <AppBarMedic />
-      <AppBarAdmin />
-      <AppBarPacient /> */}
-    </Box>
-  );
-}  
-
-// DrawerAppBar.propTypes = {
-//   /**
-//    * Injected by the documentation to work in an iframe.
-//    * You won't need it on your project.
-//    */
-//   window: PropTypes.func,
-// };
-
- export default NavBar;
+);

@@ -17,6 +17,7 @@ export {
     MenuItem,
     FormControl,
     InputLabel,
+    TextareaAutosize,
 } from '@mui/material';
 
 export { DatePicker } from '@mui/x-date-pickers';

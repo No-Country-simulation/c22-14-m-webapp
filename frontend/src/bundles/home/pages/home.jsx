@@ -6,7 +6,7 @@ import { ClipboardList, Brain, UserRound, Heart } from 'lucide-react'
 import NavBar from '../../common/components/navbar'
 
 
-const Home = () => {
+export default function Home  ()  {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const isMedium = useMediaQuery(theme.breakpoints.between('sm', 'md'));
@@ -165,7 +165,7 @@ const Home = () => {
 
   return (
     <Box>
-      <NavBar />
+      
       {/* Sección 1: Image  */}
       <Box sx={FIRST_SECTION_STYLES}>
         <Box>
@@ -243,4 +243,4 @@ const Home = () => {
   )
 }
 
-export { Home };
+

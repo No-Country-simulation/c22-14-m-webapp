@@ -11,7 +11,7 @@ const MedicalHistory = sequelize.define( 'MedicalHistory',{
         type: DataTypes.UUID,
         foreignKey: true,
     },
-    consultation: {
+    reason: {
         type: DataTypes.TEXT,
         allowNull: true,
     },

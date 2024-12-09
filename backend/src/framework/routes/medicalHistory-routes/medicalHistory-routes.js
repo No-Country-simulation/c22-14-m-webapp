@@ -3,7 +3,7 @@ import { medicalHistoryController } from "../../../modules/medicalHistory/medica
 
 const medicalHistoryRoutes = Router();
 
-medicalHistoryRoutes.post('/medicalHistory',(req, res) =>{
+medicalHistoryRoutes.post('/medicalHistory/:appoiment_id',(req, res) =>{
     medicalHistoryController.createMedicalHistory(req, res)
 });
     

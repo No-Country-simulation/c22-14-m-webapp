@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../../../css/register-medic-adn.css";
+import "../../../styles/register-medic-adn.css";
 
 import {
   TextField,
@@ -23,7 +23,7 @@ export default function RegisterMedicAdminForm() {
   };
 
   return (
-    <Box className="form-container" sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
+    <Box className="form-container" sx={{ maxWidth: 400, mx: 'auto', mt: 4, mb: 4 }}>
       <Typography sx={{ textAlign: 'center' }} variant="h4" component="h1" gutterBottom>
         Registration Form
       </Typography>

@@ -5,7 +5,12 @@ class MedicalHistoryController{
 
     async createMedicalHistory (req, res) {
         try {
-            const newMedicalHistory = await this.medicalHistoryService.createMedicationHistory(req.body);
+            const { appoiment_id } = req.params;
+            const medicalHistoryData = {
+                ...req.body,
+                appoiment_id,
+            };
+            const newMedicalHistory = await this.medicalHistoryService.createMedicationHistory(medicalHistoryData);
             res.status(201).json(newMedicalHistory);
         }catch (error) {
             res.status(400).json({message: error.message});

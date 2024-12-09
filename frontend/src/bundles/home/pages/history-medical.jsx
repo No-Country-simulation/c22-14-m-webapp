@@ -1,17 +1,57 @@
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { HISTORY_MEDICAL } from '../../../settings';
 import {
   Box,
   Button,
   Container,
-  MenuItem,
-  Select,
   TextField,
   Typography,
 } from '@mui/material';
 
 const HistoryMedical = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const { appoiment_id } = useParams();
+
+  const [formData, setFormData] = useState({
+    reason: '',
+    treatment: '',
+    diagnosis: '',
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
+
+  const handleSubmit =  async (event) => {
+    event.preventDefault();
+
+    if (Object.values(formData).some((value) => value.trim() === '')) {
+      alert('Por favor, completa todos los campos antes de guardar.');
+      return;
+    }try {
+      const response = await fetch(`${ HISTORY_MEDICAL } / ${appoiment_id}`, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+      });
+
+
+      if (!response.ok) {
+          throw new Error("Error en enviar la solicitud. Por favor intenta nuevamente.");
+      }
+
+      const data = await response.json();
+      console.log("Solicitud enviada:", data);
+
+  } catch (error) {
+      console.error("Error:", error);
+      setErrorMessage(error.message);
+  }
+};
+
 
   return (
     <Box
@@ -32,132 +72,7 @@ const HistoryMedical = () => {
           noValidate
           sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 3 }}
         >
-          <Box component="div">
-            <Typography variant="subtitle1" gutterBottom>
-              Nombres
-            </Typography>
-            <TextField
-              fullWidth
-              name="name"
-              type="text"
-              placeholder="Jane"
-              // value={formData.correo}
-              // onChange={handleChange}
-              variant="outlined"
-              sx={{
-                backgroundColor: 'white',
-                borderRadius: 2,
-              }}
-            />
-          </Box>
-
-          <Box component="div">
-            <Typography variant="subtitle1" sx={{ pb: 1 }}>
-              Apellidos
-            </Typography>
-            <TextField
-              fullWidth
-              name="lastname"
-              type="text"
-              placeholder="Doe"
-              // value={formData.correo}
-              // onChange={handleChange}
-              variant="outlined"
-              sx={{
-                backgroundColor: 'white',
-                borderRadius: 2,
-              }}
-            />
-          </Box>
-
-          <Box component="div">
-            <Typography variant="subtitle1" sx={{ pb: 1 }}>
-              Género
-            </Typography>
-            <Select
-              // value={gender}
-              // onChange={handleChange}
-              fullWidth
-              value=""
-              variant="outlined"
-              displayEmpty
-              // inputProps={{ 'aria-label': 'Without label' }}
-              sx={{
-                backgroundColor: 'white',
-                borderRadius: 2,
-              }}
-            >
-              <MenuItem value="">Género</MenuItem>
-              <MenuItem value="man">Masculino</MenuItem>
-              <MenuItem value="woman">Femenino</MenuItem>
-              <MenuItem value="no-gender">Prefiero no decirlo</MenuItem>
-            </Select>
-          </Box>
-
-          <Box
-            component="div"
-            sx={{ display: 'flex', justifyContent: 'space-between' }}
-          >
-            <Box component="div">
-              <Typography variant="subtitle1" sx={{ pb: 1 }}>
-                DNI
-              </Typography>
-              <TextField
-                fullWidth
-                name="dni"
-                type="text"
-                placeholder="1234567"
-                // value={formData.correo}
-                // onChange={handleChange}
-                variant="outlined"
-                sx={{
-                  backgroundColor: 'white',
-                  borderRadius: 2,
-                }}
-              />
-            </Box>
-            <Box component="div">
-              <Typography variant="subtitle1" sx={{ pb: 1 }}>
-                Tipo de Sangre
-              </Typography>
-              <TextField
-                fullWidth
-                name="blood"
-                type="text"
-                placeholder="A+"
-                // value={formData.correo}
-                // onChange={handleChange}
-                variant="outlined"
-                sx={{
-                  backgroundColor: 'white',
-                  borderRadius: 2,
-                }}
-              />
-            </Box>
-          </Box>
-
-          <Box component="div">
-            <Typography variant="subtitle1" sx={{ pb: 1 }}>
-              Alergias
-            </Typography>
-            <TextField
-              fullWidth
-              multiline
-              rows={4}
-              name="allergy"
-              type="text"
-              placeholder="No puedo tomar cierto medicamento me genera brotes"
-              // value={formData.correo}
-              // onChange={handleChange}
-              variant="outlined"
-              sx={{
-                backgroundColor: 'white',
-                borderRadius: 2,
-              }}
-            />
-          </Box>
-
-          <Box component="div">
+        <Box component="div">
             <Typography variant="subtitle1" sx={{ pb: 1 }}>
               Motivo de Consulta
             </Typography>
@@ -168,8 +83,8 @@ const HistoryMedical = () => {
               name="reason"
               type="text"
               placeholder="Descripción del motivo por el cual consulta"
-              // value={formData.correo}
-              // onChange={handleChange}
+              value={formData.reason}
+              onChange={handleChange}
               variant="outlined"
               sx={{
                 backgroundColor: 'white',
@@ -180,17 +95,17 @@ const HistoryMedical = () => {
 
           <Box component="div">
             <Typography variant="subtitle1" sx={{ pb: 1 }}>
-              Medicamentos
+              Tratamiento
             </Typography>
             <TextField
               fullWidth
               multiline
               rows={4}
-              name="drugs"
+              name="treatment"
               type="text"
-              placeholder="Ejemplo: Paracetamol"
-              // value={formData.correo}
-              // onChange={handleChange}
+              placeholder="Ejemplo: se receto, Paracetamol."
+              value={formData.treatment}
+              onChange={handleChange}
               variant="outlined"
               sx={{
                 backgroundColor: 'white',
@@ -207,11 +122,11 @@ const HistoryMedical = () => {
               fullWidth
               multiline
               rows={4}
-              name="diagnostic"
+              name="diagnosis"
               type="text"
               placeholder="Indicaciones de reposo y/o medicación"
-              // value={formData.correo}
-              // onChange={handleChange}
+              value={formData.diagnosis}
+              onChange={handleChange}
               variant="outlined"
               sx={{
                 backgroundColor: 'white',
