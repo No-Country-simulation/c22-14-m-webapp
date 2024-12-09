@@ -3,7 +3,6 @@ import {
   useMediaQuery, Button
 } from "../../common/components/components"
 import { ClipboardList, Brain, UserRound, Heart } from 'lucide-react'
-import NavBar from '../../common/components/navbar'
 
 
 const Home = () => {
@@ -165,7 +164,6 @@ const Home = () => {
 
   return (
     <Box>
-      <NavBar />
       {/* Sección 1: Image  */}
       <Box sx={FIRST_SECTION_STYLES}>
         <Box>

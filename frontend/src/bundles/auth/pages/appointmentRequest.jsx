@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { 
     TextField,
     Button, 
@@ -198,7 +198,7 @@ const AppoimentRequest = () =>{
                     size="large"
                 >
                     Solicitar
-                </Button>
+                </Button>   
             </Box>
         </Container>
     )
