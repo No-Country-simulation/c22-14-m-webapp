@@ -5,6 +5,6 @@ import { AppointmentController } from "./appointment.controller.js";
 
 const appointmentRepository = new AppointmentRepository(Appointment);
 const appointmentService = new AppointmentService(appointmentRepository);
-const AppointmentController = new AppointmentController(appointmentService);
+const appointmentController = new AppointmentController(appointmentService);
 
-export { Appointment, AppointmentController }
+export { Appointment, appointmentController }

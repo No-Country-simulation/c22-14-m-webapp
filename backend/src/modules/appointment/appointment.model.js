@@ -1,7 +1,5 @@
 import { DatabaseError, DataTypes } from "sequelize";
 import { sequelize } from "../../config/db/index.js";
-import { Doctor } from "../doctors/doctor.model.js";
-import { Patient } from "../patients/patient.model.js";
 
 /**
  * The medical appointment model, reflecting the columns on the database
