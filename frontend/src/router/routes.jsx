@@ -6,6 +6,7 @@ import { AppRoute } from '../bundles/common/constants/constants';
 import HistoryMedical from '../bundles/home/pages/history-medical';
 import { Home } from '../bundles/home/pages/home';
 import { AppoimentRequest } from '../bundles/auth/pages/appointmentRequest';
+import { AppoimentManagement } from '../bundles/auth/pages/appoimentManagement';
 import NavBar from '../bundles/common/components/navbar';
 
 const routes = [
@@ -25,6 +26,10 @@ const routes = [
                 path: AppRoute.FEAT_APPOIMENT,  
                 element: <AppoimentRequest />,
             },
+            {
+                path: AppRoute.APPOIMENT_MANAGEMENT,
+                element: <AppoimentManagement />,
+              },
             {
                 path: AppRoute.ROOT,
                 element: (
