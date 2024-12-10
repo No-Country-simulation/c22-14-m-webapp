@@ -5,10 +5,10 @@ class MedicalHistoryController{
 
     async createMedicalHistory (req, res) {
         try {
-            const { appoiment_id } = req.params;
+            const { appoinment_id } = req.params;
             const medicalHistoryData = {
                 ...req.body,
-                appoiment_id,
+                appoinment_id,
             };
             const newMedicalHistory = await this.medicalHistoryService.createMedicationHistory(medicalHistoryData);
             res.status(201).json(newMedicalHistory);

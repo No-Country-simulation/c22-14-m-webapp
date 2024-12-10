@@ -7,7 +7,7 @@ const MedicalHistory = sequelize.define( 'MedicalHistory',{
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
     },
-    appoiment_id: {
+    appoinment_id: {
         type: DataTypes.UUID,
         foreignKey: true,
     },

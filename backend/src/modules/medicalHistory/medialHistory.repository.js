@@ -14,11 +14,11 @@ class MedicalHistoryRepository{
     async findByPatientId(patientId) {
         return await this.medicalHistoryModel.findAll({
             where: {
-                '$Appoiment.patient_id$': patientId,
+                '$Appoinment.patient_id$': patientId,
             },
             include: [
                 {
-                    model: Appoiment,
+                    model: Appoinment,
                     required: true,
                     attributes: ['id', 'date', 'status'],
                 }
