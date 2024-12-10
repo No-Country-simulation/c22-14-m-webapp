@@ -25,7 +25,7 @@ const Patient = sequelize.define('patient', {
 
 Patient.associate = (models) => {
     Patient.belongsTo(models.User, { onDelete: 'CASCADE' });
-    Patient.hasMany(models.Appoiment, { onDelete: 'CASCADE' });
+    Patient.hasMany(models.Appointment, { onDelete: 'CASCADE' });
 };
 
 export { Patient };
