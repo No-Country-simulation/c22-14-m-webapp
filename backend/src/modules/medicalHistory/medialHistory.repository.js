@@ -20,7 +20,13 @@ class MedicalHistoryRepository{
                 {
                     model: Appoinment,
                     required: true,
-                    attributes: ['id', 'date', 'status'],
+                    attributes: [
+                        'id',
+                        'patient_name',
+                        'specialty',
+                        'date',
+                        'status'
+                    ],
                 }
             ],
         });
