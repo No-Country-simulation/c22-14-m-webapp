@@ -25,6 +25,13 @@ class MedicalHistoryRepository{
             ],
         });
     }
+
+    async update(id, updatedData) {
+        const [affectedRows] = await this.medicalHistoryModel.update(updatedData, {
+            where: { id },
+        });
+        return affectedRows > 0;
+    }
 }
 
 export { MedicalHistoryRepository };

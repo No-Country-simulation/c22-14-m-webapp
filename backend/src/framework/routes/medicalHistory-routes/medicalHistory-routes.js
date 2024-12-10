@@ -11,4 +11,9 @@ medicalHistoryRoutes.get('/:patient_id', (req, res) => {
     medicalHistoryController.getMedicalHistoryByPatient.bind(req, res)
 });
 
+medicalHistoryRoutes.put('/:id', (req, res) => {
+    medicalHistoryController.updateMedicalHistory(req, res)
+});
+
+
 export default medicalHistoryRoutes;
