@@ -7,6 +7,7 @@ import HistoryMedical from '../bundles/home/pages/history-medical';
 import { Home } from '../bundles/home/pages/home';
 import { AppoimentRequest } from '../bundles/auth/pages/appointmentRequest';
 import { AppoimentManagement } from '../bundles/auth/pages/appoimentManagement';
+import { DoctorSelection } from '../bundles/auth/pages/doctorSelection';
 import NavBar from '../bundles/common/components/navbar';
 
 const routes = [
@@ -29,7 +30,11 @@ const routes = [
             {
                 path: AppRoute.APPOIMENT_MANAGEMENT,
                 element: <AppoimentManagement />,
-              },
+            },
+            {
+                path: `${AppRoute.DOCTOR_SELECTION}/:appointmentId`,
+                element: <DoctorSelection />,
+            },
             {
                 path: AppRoute.ROOT,
                 element: (
