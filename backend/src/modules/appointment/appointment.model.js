@@ -56,16 +56,9 @@ const Appointment = sequelize.define('appointment', {
  * @param {Doctor} models.Doctor The doctor model
  */
 Appointment.associate = (models) => {
-    Appointment.belongsTo(models.Doctor, {
-        foreignKey: 'doctor_id',
-        type: DataTypes.UUID,
-        onDelete: 'CASCADE'
-    })
-    models.Doctor.hasMany(Appointment, {
-        foreignKey: 'doctor_id',
-        type: DataTypes.UUID,
-        onDelete: 'CASCADE'
-    })
-}
+    Appointment.belongsTo(models.Doctor, { onDelete: 'CASCADE' });
+    Appointment.belongsTo(models.Patient, { onDelete: 'CASCADE' });
+};
+
 
 export { Appointment }

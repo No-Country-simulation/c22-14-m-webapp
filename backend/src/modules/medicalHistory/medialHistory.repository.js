@@ -14,16 +14,29 @@ class MedicalHistoryRepository{
     async findByPatientId(patientId) {
         return await this.medicalHistoryModel.findAll({
             where: {
-                '$Appoiment.patient_id$': patientId,
+                '$Appoinment.patient_id$': patientId,
             },
             include: [
                 {
-                    model: Appoiment,
+                    model: Appoinment,
                     required: true,
-                    attributes: ['id', 'date', 'status'],
+                    attributes: [
+                        'id',
+                        'patient_name',
+                        'specialty',
+                        'date',
+                        'status'
+                    ],
                 }
             ],
         });
+    }
+
+    async update(id, updatedData) {
+        const [affectedRows] = await this.medicalHistoryModel.update(updatedData, {
+            where: { id },
+        });
+        return affectedRows > 0;
     }
 }
 

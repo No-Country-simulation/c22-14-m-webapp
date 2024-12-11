@@ -14,7 +14,7 @@ class DoctorRepository {
     }
   
     async findBySpecialty(specialty) {
-        return await this.doctorModel.findOne({ where: { specialty } });
+        return await this.doctorModel.findAll({ where: { specialty } });
     }
   
     async create(doctorData) {

@@ -25,6 +25,16 @@ class DoctorController {
             res.status(500).json({ message: error.message });
         }
     }
+
+    async getDoctorBySpecialty (req, res){
+        try{
+            const doctorSpecialty = req.params.doctorSpecialty;
+            const doctors = await this.doctorService.getDoctorBySpecialty(doctorSpecialty)
+            res.status(200).json(doctors);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 export { DoctorController };

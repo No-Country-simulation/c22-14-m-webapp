@@ -7,7 +7,7 @@ const MedicalHistory = sequelize.define( 'MedicalHistory',{
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
     },
-    appoiment_id: {
+    appoinment_id: {
         type: DataTypes.UUID,
         foreignKey: true,
     },
@@ -26,7 +26,7 @@ const MedicalHistory = sequelize.define( 'MedicalHistory',{
 })
 
 MedicalHistory.associate = (models) => {
-    MedicalHistory.belongsTo(models.Appoiment, { onDelete: 'CASCADE' });
+    MedicalHistory.belongsTo(models.Appointment, { onDelete: 'CASCADE' });
   };
 
 export { MedicalHistory };
