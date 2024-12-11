@@ -13,6 +13,21 @@ class AppointmentController {
     }
 
     /**
+     * Get all appointments, with an optional filter
+     * @param {Request} req The Request object of Express
+     * @param {Response} res The Response object of Express
+     */
+    async getAppointments(req, res) {
+        try {
+            const filter = req.body.filter;
+            const appointments = await this.appointmentService.getAppointments(filter);
+            res.status(200).json(appointments);
+        } catch (error) {
+            res.status(404).json({message: error.message})
+        }
+    }
+
+    /**
      * Schedule a new appointment
      * @param {Request} req The Request object of Express
      * @param {Response} res The Response object of Express
