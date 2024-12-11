@@ -18,6 +18,19 @@ export {
     FormControl,
     InputLabel,
     TextareaAutosize,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Stack,
+    Avatar,
+    DialogTitle,
+    DialogActions,
+    Dialog,
+    DialogContent
 } from '@mui/material';
 
 export { DatePicker } from '@mui/x-date-pickers';
