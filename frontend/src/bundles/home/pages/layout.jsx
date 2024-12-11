@@ -8,6 +8,7 @@ import { SignUp } from '../../auth/pages/signUp';
 import HistoryMedical from '../pages/history-medical';
 import  Footer  from '../../common/components/footer';
 import ViewExpedientes from './viewExpedientes';
+import MedicalHistoryView from './medicalHistoryView';
 
 
 
@@ -23,6 +24,7 @@ function Layout() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/history-medical" element={<HistoryMedical />} />
         <Route path="/view-expedientes" element={<ViewExpedientes />} />
+        <Route path="/medical-history-view" element={<MedicalHistoryView />} />
       </Routes>
       <Footer />
     </BrowserRouter>
