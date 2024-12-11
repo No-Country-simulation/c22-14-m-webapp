@@ -14,6 +14,30 @@ class AppointmentRepository {
     }
 
     /**
+     * 
+     * @param {string} id The ID of the appointment to update
+     * @param {"scheduled"|"completed"|"cancelled"} newStatus 
+     * @returns 
+     */
+    async updateStatus(id, newStatus) {
+        const appointment = await this.appointmentModel.findByPk(id);
+        appointment.status = newStatus;
+        return await appointment.save();
+    }
+
+    /**
+     * Add a doctor_id to a desired appointment
+     * @param {string} id The ID of the appointment to update
+     * @param {string} doctor_id The ID of the Doctor
+     * @returns {Model} The updated Appointment
+     */
+    async updateDoctorId(id, doctor_id) {
+        const appointment = await this.appointmentModel.findByPk(id);
+        appointment.doctor_id = doctor_id;
+        return await appointment.save();
+    }
+
+    /**
      * Fetch all appointments
      * @returns { Appointment[] } All appointments
      */
@@ -57,7 +81,7 @@ class AppointmentRepository {
         return await this.appointmentModel.findAll({
             where: {
                 status: {
-                    [Op.ne]: "completed"
+                    [Op.eq]: "completed"
                 }
             }
         });

@@ -12,6 +12,33 @@ class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
+    async updateStatus(req, res) {
+        const id = req.params.appointment_id;
+        const { status } = req.body;
+        try {
+            const appointment = await this.appointmentService.updateStatus(id, status);
+            res.status(200).json(appointment);
+        } catch (error) {
+            res.status(400).json({message: error.message});
+        }
+    }
+
+    /**
+     * 
+     * @param {Request} req The Request object of Express
+     * @param {Request} res The Response object of Express
+     */
+    async assignDoctor(req, res) {
+        const id = req.params.appointment_id;
+        const { doctor_id } = req.body;
+        try {
+            const appointment = await this.appointmentService.assignDoctor(id, doctor_id);
+            res.status(200).json(appointment);
+        } catch (error) {
+            res.status(400).json({message: error.message});
+        }
+    }
+
     /**
      * Get all appointments, with an optional filter
      * @param {Request} req The Request object of Express
