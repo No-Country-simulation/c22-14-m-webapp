@@ -7,6 +7,7 @@ const AppRoute = {
     NAVBAR: '/navbar',
     FEAT_APPOIMENT: '/appoiment-request',
     APPOIMENT_MANAGEMENT: '/appoiment-management',
+    DOCTOR_SELECTION: '/doctor-selection',
     MEDICAL_HISTORY_VIEW: '/medical-history-view',
     ANY: '*',
 }

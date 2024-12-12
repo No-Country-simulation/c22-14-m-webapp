@@ -9,6 +9,8 @@ import HistoryMedical from '../pages/history-medical';
 import  Footer  from '../../common/components/footer';
 import ViewExpedientes from './viewExpedientes';
 import MedicalHistoryView from './medicalHistoryView';
+import { DoctorSelection } from '../../auth/pages/doctorSelection';
+import { AppoimentManagement } from '../../auth/pages/appoimentManagement';
 
 
 
@@ -25,6 +27,8 @@ function Layout() {
         <Route path="/history-medical" element={<HistoryMedical />} />
         <Route path="/view-expedientes" element={<ViewExpedientes />} />
         <Route path="/medical-history-view" element={<MedicalHistoryView />} />
+        <Route path="/doctor-selection" element={<DoctorSelection />} />
+        <Route path="/appoiment-management" element={<AppoimentManagement />} />
       </Routes>
       <Footer />
     </BrowserRouter>
