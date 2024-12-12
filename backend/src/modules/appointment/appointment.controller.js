@@ -61,9 +61,11 @@ class AppointmentController {
      */
     async schedule(req, res) {
         try {
+            console.log("objeto recibido:", req.body);
             const newAppointment = await this.appointmentService.scheduleAppointment(req.body);
             res.status(200).json(newAppointment);
         } catch (error) {
+            console.error("Error al programar cita:", error);
             res.status(404).json({ message: error.message });
         }
     }

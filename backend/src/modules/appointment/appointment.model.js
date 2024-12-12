@@ -14,6 +14,7 @@ const Appointment = sequelize.define('appointment', {
     patient_id:{
         type: DataTypes.UUID,
         foreignKey: true,
+        //allowNull:true pruebas
     },
     patient_name: {
         type: DataTypes.STRING,
@@ -67,22 +68,18 @@ const Appointment = sequelize.define('appointment', {
 Appointment.associate = (models) => {
     Appointment.belongsTo(models.Doctor, { 
         foreignKey: 'doctor_id',
-        type: DataTypes.UUID,
         onDelete: 'CASCADE'
     });
     models.Doctor.hasMany(Appointment, {
         foreignKey: 'doctor_id',
-        type: DataTypes.UUID,
         onDelete: 'CASCADE'
     });
-    Appointment.belongsTo(models.Patient,{
+    Appointment.belongsTo(models.Patient, {
         foreignKey: 'patient_id',
-        type:DataTypes.UUID,
         onDelete: 'CASCADE'
     });
     models.Patient.hasMany(Appointment, {
         foreignKey: 'patient_id',
-        type: DataTypes.UUID,
         onDelete: 'CASCADE'
     });
 };

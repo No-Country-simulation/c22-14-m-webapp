@@ -61,14 +61,9 @@ class AppointmentService {
      * @returns { Model } The model object of the saved Appointment record
      */
     async scheduleAppointment(appointmentData) {
-        const newAppointment = this.appointmentRepository.create(appointmentData);
-        const appointmentWithDetails = await this.appointmentRepository.appointmentModel.findByPk(newAppointment.id, {
-            include: [
-                { model: this.appointmentRepository.appointmentModel.sequelize.models.Patient, attributes: [] },
-                { model: this.appointmentRepository.appointmentModel.sequelize.models.Doctor,attributes: [] } 
-            ]
-        });
-        return appointmentWithDetails;
+        const newAppointment = await this.appointmentRepository.create(appointmentData);
+        
+        return newAppointment;
     }
 }
 
