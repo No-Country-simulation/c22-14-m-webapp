@@ -11,10 +11,9 @@ const Appointment = sequelize.define('appointment', {
         allowNull: false,
         defaultValue: DataTypes.UUIDV4
     },
-    patient_id:{
+    patient_id: {
         type: DataTypes.UUID,
-        foreignKey: true,
-        //allowNull:true pruebas
+        allowNull: false
     },
     patient_name: {
         type: DataTypes.STRING,

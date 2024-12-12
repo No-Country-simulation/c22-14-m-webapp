@@ -93,6 +93,7 @@ class AppointmentRepository {
      * @returns { Model } The model object of the saved Appointment record
      */
     async create(appointmentData) {
+        console.log("Appointment Data:", appointmentData);
         return await this.appointmentModel.create(appointmentData);
     }
 }
