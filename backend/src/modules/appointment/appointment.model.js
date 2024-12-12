@@ -1,4 +1,4 @@
-import { DatabaseError, DataTypes } from "sequelize";
+import { DataTypes } from "sequelize";
 import { sequelize } from "../../config/db/index.js";
 
 /**
@@ -10,6 +10,10 @@ const Appointment = sequelize.define('appointment', {
         primaryKey: true,
         allowNull: false,
         defaultValue: DataTypes.UUIDV4
+    },
+    patient_id:{
+        type: DataTypes.UUID,
+        foreignKey: true,
     },
     patient_name: {
         type: DataTypes.STRING,
@@ -48,6 +52,11 @@ const Appointment = sequelize.define('appointment', {
             is: /^(?:scheduled|completed|cancelled)/
         }
     },
+    doctor_id: {
+        type: DataTypes.UUID,
+        foreignKey: true,
+        allowNull: true,
+    },
 })
 
 /**
@@ -63,6 +72,16 @@ Appointment.associate = (models) => {
     });
     models.Doctor.hasMany(Appointment, {
         foreignKey: 'doctor_id',
+        type: DataTypes.UUID,
+        onDelete: 'CASCADE'
+    });
+    Appointment.belongsTo(models.Patient,{
+        foreignKey: 'patient_id',
+        type:DataTypes.UUID,
+        onDelete: 'CASCADE'
+    });
+    models.Patient.hasMany(Appointment, {
+        foreignKey: 'patient_id',
         type: DataTypes.UUID,
         onDelete: 'CASCADE'
     });
