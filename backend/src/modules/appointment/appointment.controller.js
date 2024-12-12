@@ -1,4 +1,5 @@
 import { AppointmentService } from "./appointment.service.js";
+import { Model, Op, where } from "sequelize";
 
 /**
  * The Controller component of the Appointment entity, recieving and retrieving data from the Front-End
@@ -72,7 +73,7 @@ class AppointmentController {
                 where: {
                     [Op.or]: [
                         { email: patient_email }, 
-                        { phone: patient_phone }
+                        { phoneNumber: patient_phone }
                     ]
                 }
             });
