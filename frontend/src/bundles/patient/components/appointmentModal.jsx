@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { FormControl, InputLabel, MenuItem, Select, TextareaAutosize, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
+import { useSelector } from '../../common/hooks/hooks.js';
+import { format } from 'date-fns';
 
 const style = {
   position: 'absolute',
@@ -20,13 +22,12 @@ const style = {
 };
 
 const AppointmentModal = ({ handleClose }) => {
+
+  const user = useSelector((state) => state.user.user)
+
   const [formData, setFormData] = React.useState({
-    fullName: '',
-    phoneNumber: '',
-    email: '',
     especialidad: '',
     rangeHours: '',
-    birthDate: null,
     description: '',
   });
   
@@ -51,6 +52,9 @@ const AppointmentModal = ({ handleClose }) => {
     console.log(formData);
   };
 
+  const date = new Date("2024-12-01T03:00:00.000Z");
+  const formattedDate = format(date, "dd-MM-yyyy");
+
   return (
     <Modal open={open} onClose={handleClose} aria-labelledby="modal-title" aria-describedby="modal-description">
         <Box sx={style}>
@@ -58,6 +62,11 @@ const AppointmentModal = ({ handleClose }) => {
                 <Typography variant="h4" component="h1" textAlign="center" sx={{ marginBottom: 3 }}>
                     Solicite su cita
                 </Typography>
+
+                <Typography>Nombre: {user?.firstName} {user?.lastName}</Typography>
+                <Typography>Correo: {user?.email}</Typography>
+                <Typography>Teféfono: {user?.patient.phoneNumber}</Typography>
+                <Typography>Fecha de nacimiento: {formattedDate}</Typography>
 
                 <FormControl fullWidth margin="normal">
                     <InputLabel>Especialidad</InputLabel>

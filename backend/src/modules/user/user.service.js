@@ -38,7 +38,7 @@ class UserService {
         if (!doctors) {
             throw new Error('No hay doctores registrados');
         }
-        return patient;
+        return patients;
     }
 
     async registerUser(userData) {
@@ -76,8 +76,10 @@ class UserService {
         }
         
         const token = await tokenService.createToken(newUser.id);
+        const userInfo = await this.getUserById(newUser.id);
+        console.log("vamossssss", userInfo)
 
-        return { token };
+        return { userInfo };
     }
 
     async loginUser(email, password) {

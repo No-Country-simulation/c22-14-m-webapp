@@ -4,11 +4,12 @@ import {
     useMediaQuery,
     DatePicker
 } from '../../common/components/components';
-import { useNavigate } from 'react-router-dom';
 import { SIGN_UP } from '../../../settings';
-
+import { useDispatch, useNavigate } from "../../common/hooks/hooks";
+import { setUser } from "../../../framework/store/user/userSlice";
 
 const SignUp = () => {
+    const dispatch = useDispatch()
     const navigate = useNavigate();
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
@@ -27,6 +28,10 @@ const SignUp = () => {
         password: "",
         role: "patient",
     });
+
+    const handleSetUser = (userInfo) => {
+        dispatch(setUser(userInfo));
+      };
 
 
     const CONTAINER_REGISTER_STYLES = {
@@ -144,13 +149,13 @@ const SignUp = () => {
             if (!response.ok) {
                 throw new Error(data.message);
             }
-            alert("Registro exitoso. ¡Bienvenido a VitaMind!");
-            console.log("Registro exitoso:", formData);
+            console.log("Registro exitoso:", data.userInfo);
             if (data.token) {
                 localStorage.setItem('token', data.token);
             }
             localStorage.removeItem('signUpFormData');
-            navigate('/');
+            handleSetUser(data.userInfo);
+            navigate('/me');
         } catch (error) {
             console.error("Error:", error);
             setErrorMessage(error.message);

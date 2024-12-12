@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { AppBar, Toolbar, Typography, Button, Menu, MenuItem, IconButton } from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, Menu, MenuItem, IconButton, Box } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link as RouterLink } from "react-router-dom";
-import styles from "./NavBar.module.css";
-import { Link } from 'react-scroll';
+import { Link as ScrollLink } from 'react-scroll';
 
 const NavBarBase = ({ links, profileOptions }) => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -16,33 +15,54 @@ const NavBarBase = ({ links, profileOptions }) => {
     setAnchorEl(null);
     };
 
+    const renderLink = (link) => {
+        if (link.to.startsWith("#")) {
+        return (
+            <ScrollLink
+                key={link.label}
+                to={link.to.substring(1)}
+                smooth={true}
+                duration={500}
+                spy={true}
+                offset={-70}
+            >
+            <Button variant="text">{link.label}</Button>
+            </ScrollLink>
+        );
+        } else {
+        // Enlace externo (react-router-dom)
+        return (
+            <Button
+                variant="text"
+                key={link.label}
+                component={RouterLink}
+                to={link.to}
+                color="inherit"
+            >
+            {link.label}
+            </Button>
+        );
+        }
+    };
+    
+
     return (
-    <AppBar position="static" className={styles.navBar}>
+    <AppBar sx={{
+        position: "sticky",
+        top: 0,
+        zIndex: 1100, // Asegura que el navbar esté por encima de otros elementos
+    }}>
         <Toolbar>
             <Typography
                 variant="h6"
                 component={RouterLink}
                 to="/"
-                className={styles.logo}
                 sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}
             >
                 VitaMind
             </Typography>
-            <div>
-                {links.map((link) => (
-                    <Link
-                        key={link.label}
-                        to={link.to} // ID de la sección a la que quieres desplazarte
-                        smooth={true} // Activar desplazamiento suave
-                        duration={500} // Duración del desplazamiento en milisegundos
-                        spy={true} // Activa el seguimiento para aplicar estilos activos
-                        offset={-70} // Ajuste de desplazamiento (por ejemplo, para una barra de navegación fija)
-                    >
-                        <Button va>
-                            {link.label}
-                        </Button>
-                    </Link>
-                ))}
+            <Box>
+                {links && links.map((link) => renderLink(link))}
                 
                 {profileOptions && (
                 <>
@@ -67,7 +87,7 @@ const NavBarBase = ({ links, profileOptions }) => {
                     </Menu>
                 </>
                 )}
-            </div>
+            </Box>
         </Toolbar>
     </AppBar>
     );

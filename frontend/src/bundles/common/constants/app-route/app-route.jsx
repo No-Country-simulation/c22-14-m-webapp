@@ -1,5 +1,6 @@
 const AppRoute = {
     ROOT: '/',
+    ME: '/me',
     SIGN_IN: '/sign-in',
     HISTORY_MEDICAL: '/history-medical',
     SIGN_UP: '/sign-up',

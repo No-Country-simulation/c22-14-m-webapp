@@ -1,5 +1,3 @@
-//integracion del sistema de doctores
-
 import { Doctor } from "./doctor.model.js";
 import { DoctorRepository } from "./doctor.repository.js";
 import { DoctorService } from "./doctor.service.js";

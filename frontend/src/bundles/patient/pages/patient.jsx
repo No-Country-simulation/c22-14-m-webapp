@@ -9,24 +9,24 @@ import {
   List,
   ListItem,
   ListItemText,
-  AppBar,
-  Toolbar,
   Container,
 } from '@mui/material';
 import { AppointmentModal } from '../components/appointmentModal';
 import { useState } from 'react';
+import { useSelector } from '../../common/hooks/hooks.js';
 
-const Patients = () => {
+const Patient = () => {
+    const user = useSelector((state) => state.user.user)
 
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    console.log("user", user)
+
   return (
     <Box>
-
-        {/* Main Content */}
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid2  container spacing={2} sx={{
                 display: 'grid',
@@ -128,4 +128,4 @@ const Patients = () => {
   );
 };
 
-export default Patients;
+export default Patient;

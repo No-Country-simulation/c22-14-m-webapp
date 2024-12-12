@@ -1,5 +1,3 @@
-//controla la iteraccion directa con la base de datos
-
 class DoctorRepository {
     constructor(doctorModel) {
         this.doctorModel = doctorModel;

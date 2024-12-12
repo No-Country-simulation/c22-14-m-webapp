@@ -1,6 +1,3 @@
-// controlador, recibe las solicitudes http, llama a los metodos
-// envia la respuesta al front(errores o rediccionamientos)
-
 class DoctorController {
     constructor(doctorService) {
         this.doctorService = doctorService;

@@ -6,6 +6,7 @@ import { AppRoute } from '../bundles/common/constants/constants';
 import HistoryMedical from '../bundles/home/pages/history-medical';
 import { Home } from '../bundles/home/pages/home';
 import { AppoimentRequest } from '../bundles/auth/pages/appointmentRequest';
+import Patient from '../bundles/patient/pages/patient';
 
 const routes = [
     {
@@ -29,6 +30,14 @@ const routes = [
                 element: (
                     <ProtectedRoute>
                         <Home />
+                    </ProtectedRoute>
+                ),
+            },
+            {
+                path: AppRoute.ME,
+                element: (
+                    <ProtectedRoute>
+                        <Patient />
                     </ProtectedRoute>
                 ),
             },

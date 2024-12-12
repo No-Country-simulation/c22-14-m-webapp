@@ -43,7 +43,7 @@ class UserRepository {
         const userWithRole = await this.userModel.findByPk(id, {
             include: includeModel ? [includeModel] : [],
           });
-
+        console.log(userWithRole)
         return userWithRole;
     }
 

@@ -16,8 +16,8 @@ const NavBar = ({ role }) => {
 const NavBarPublic = () => (
   <NavBarBase
     links={[
-      { label: "Nosotros", to: "#about-us" },
-      { label: "Servicios", to: "services" },
+      { label: "Nosotros", to: "/" },
+      // { label: "Servicios", to: "#services" },
       { label: "¡Agenda tu Cita!", to: "/appoiment-request" },
       { label: "Registrarme", to: "/sign-up" },
     ]}
@@ -26,11 +26,8 @@ const NavBarPublic = () => (
 
 const NavBarPatient = () => (
   <NavBarBase
-    links={[
-      { label: "Nosotros", to: "/#about-us" },
-      { label: "Servicios", to: "/#services" },
-    ]}
     profileOptions={[
+      { label: "Nosotros", to: "/#about-us" },
       { label: "Cerrar Sesión", to: "/logout" },
     ]}
   />

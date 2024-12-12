@@ -1,3 +1,4 @@
+import { useSelector } from "../../common/hooks/hooks.js";
 import {
   Typography, Box, Card, CardContent, useTheme,
   useMediaQuery, Button
@@ -161,10 +162,15 @@ const Home = () => {
     fontSize: isSmall ? "14px" : isMedium ? "16px" : "18px",
     lineHeight: 1.6,
   };
+  const user = useSelector((state) => state.user.user)
+  console.log("redux", user)
 
   return (
     <Box>
       {/* Sección 1: Image  */}
+      <Typography>
+
+      </Typography>
       <Box sx={FIRST_SECTION_STYLES}>
         <Box>
           <Box sx={IMAGE_CONTAINER_STYLES}>

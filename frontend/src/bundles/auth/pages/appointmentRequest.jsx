@@ -97,7 +97,6 @@ const AppoimentRequest = () =>{
             }
 
             const data = await response.json();
-            console.log("Solicitud enviada:", data);
 
             navigate('/home');
         } catch (error) {
