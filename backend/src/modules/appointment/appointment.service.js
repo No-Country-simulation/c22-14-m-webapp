@@ -34,18 +34,37 @@ class AppointmentService {
      */
     async getAppointments(filter) {
         if (!filter) {
-            return this.appointmentRepository.findAll();
+            return this.appointmentRepository.findAll({
+                include: [
+                    { model: this.appointmentRepository.appointmentModel.sequelize.models.patient, attributes: [], required: false },
+                    { model: this.appointmentRepository.appointmentModel.sequelize.models.doctor,attributes: [], required: false }
+                ]
+            })
         }
         else {
             switch (filter) {
                 case "unassigned": {
-                    return this.appointmentRepository.findUnassigned();
+                    return this.appointmentRepository.findUnassigned({
+                        include: [
+                            { model: this.appointmentRepository.appointmentModel.sequelize.models.patient, attributes: [], required: false },
+                        ]
+                    });
                 }
                 case "assigned": {
-                    return this.appointmentRepository.findAssigned();
+                    return this.appointmentRepository.findAssigned({
+                        include: [
+                            { model: this.appointmentRepository.appointmentModel.sequelize.models.patient, attributes: [], required: false },
+                            { model: this.appointmentRepository.appointmentModel.sequelize.models.doctor,attributes: [], required: false }
+                        ]
+                    });
                 }
                 case "finished": {
-                    return this.appointmentRepository.findFinished();
+                    return this.appointmentRepository.findFinished({
+                        include: [
+                            { model: this.appointmentRepository.appointmentModel.sequelize.models.patient, attributes: [], required: false },
+                            { model: this.appointmentRepository.appointmentModel.sequelize.models.doctor,attributes: [], required: false }
+                        ]
+                    });
                 }
                 default: {
                     throw new Error("Filtro Invalido");
@@ -61,11 +80,12 @@ class AppointmentService {
      * @returns { Model } The model object of the saved Appointment record
      */
     async scheduleAppointment(appointmentData) {
-        const newAppointment = this.appointmentRepository.create(appointmentData);
+        const newAppointment = await this.appointmentRepository.create(appointmentData);
+        console.log(this.appointmentRepository.appointmentModel.sequelize.models);
         const appointmentWithDetails = await this.appointmentRepository.appointmentModel.findByPk(newAppointment.id, {
             include: [
-                { model: this.appointmentRepository.appointmentModel.sequelize.models.Patient, attributes: [] },
-                { model: this.appointmentRepository.appointmentModel.sequelize.models.Doctor,attributes: [] } 
+                { model: this.appointmentRepository.appointmentModel.sequelize.models.patient, attributes: [], required: false },
+                { model: this.appointmentRepository.appointmentModel.sequelize.models.doctor,attributes: [], required: false } 
             ]
         });
         return appointmentWithDetails;
