@@ -62,35 +62,14 @@ class AppointmentController {
      */
     async schedule(req, res) {
         try {
-            const { patient_email, patient_phone, ...appointmentData } = req.body;
-    
-
-            if (!patient_email && !patient_phone) {
-                throw new Error("Se requiere al menos el correo electrónico o el teléfono del paciente.");
-            }
-    
-            const patient = await this.appointmentRepository.appointmentModel.sequelize.models.Patient.findOne({
-                where: {
-                    [Op.or]: [
-                        { email: patient_email }, 
-                        { phoneNumber: patient_phone }
-                    ]
-                }
-            });
-
-            if (!patient) {
-                throw new Error("No se encontró un paciente con los datos proporcionados.");
-            }
-
-            appointmentData.patient_id = patient.id;
-    
-            const newAppointment = await this.appointmentService.scheduleAppointment(appointmentData);
-    
-            res.status(200).json(newAppointment);
+            const newAppointment = await this.appointmentService.scheduleAppointment(req.body);
+            res.status(201).json(newAppointment);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
     }
+    
+    
     
 }
 
