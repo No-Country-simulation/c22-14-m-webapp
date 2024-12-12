@@ -16,8 +16,8 @@ const NavBar = ({ role }) => {
 const NavBarPublic = () => (
   <NavBarBase
     links={[
-      { label: "Nosotros", to: "/#about-us" },
-      { label: "Servicios", to: "/#services" },
+      { label: "Nosotros", to: "#about-us" },
+      { label: "Servicios", to: "services" },
       { label: "¡Agenda tu Cita!", to: "/appoiment-request" },
       { label: "Registrarme", to: "/sign-up" },
     ]}
