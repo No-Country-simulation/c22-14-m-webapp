@@ -23,7 +23,7 @@ const Record = sequelize.define( 'record',{
 })
 
 Record.associate = (models) => {
-    Record.belongsTo(models.Appoiment, { onDelete: 'CASCADE' });
+    Record.belongsTo(models.Appointment, { onDelete: 'CASCADE' });
 };
 
 

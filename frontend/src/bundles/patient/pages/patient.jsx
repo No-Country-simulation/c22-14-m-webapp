@@ -12,18 +12,22 @@ import {
   Container,
 } from '@mui/material';
 import { AppointmentModal } from '../components/appointmentModal';
-import { useState } from 'react';
-import { useSelector } from '../../common/hooks/hooks.js';
+import { useEffect, useState, useSelector, useDispatch } from '../../common/hooks/hooks.js';
+import { fetchUserAppointments } from '../../../framework/store/appointment/appointmentSlice.js';
 
 const Patient = () => {
+    const appointments = useSelector((state) => state.appointments)
     const user = useSelector((state) => state.user.user)
-
+    const dispatch = useDispatch()
+    
     const [open, setOpen] = useState(false);
-
+    
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
-    console.log("user", user)
+    
+    useEffect(() => {
+        dispatch(fetchUserAppointments(user.id));
+    }, [dispatch, user.id]);
 
   return (
     <Box>
@@ -39,88 +43,86 @@ const Patient = () => {
                 maxWidth: 'lg',}}>
                     
             {/* Upcoming Appointments */}
-            <Grid2 xs={12} md={6} lg={4}>
-                <Card>
-                <CardContent>
-                    <Typography variant="h6" gutterBottom>
-                    Proximas citas
-                    </Typography>
-                    <List>
-                    <ListItem>
-                        <ListItemText
-                        primary="hannibal"
-                        secondary="Enero 15, 2025 - 10:00 AM"
-                        />
-                    </ListItem>
-                    <ListItem>
-                        <ListItemText
-                        primary="Jack"
-                        secondary="Febrero 20, 2025 - 2:00 PM"
-                        />
-                    </ListItem>
-                    </List>
-                    <Button variant="contained" color="primary" fullWidth>
-                    Programar cita
-                    </Button>
-                </CardContent>
-                </Card>
-            </Grid2>
+                <Grid2 xs={12} md={6} lg={4}>
+                    <Card>
+                    <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                        Proximas citas
+                        </Typography>
+                        <List>
+                            {appointments.slice(0,2).map((appointment, index) => (
+                                <>
+                                    <ListItem key={index}>
+                                        <ListItemText
+                                            primary={<Typography style={{ fontWeight: 'bold', color: '#333' }}>{appointment.doctor?.firstName || "Por Asignar"}</Typography>}
+                                            secondary={<Typography style={{ color: '#555' }}>{appointment.date}</Typography>}
+                                        />
+                                    </ListItem>
+                                    <Button fullWidth>
+                                    Reprogramar cita
+                                    </Button>
+                                </>
+                            ))}
+                        </List>
+                    </CardContent>
+                    </Card>
+                </Grid2>
 
-            {/* Medical History */}
-            <Grid2 xs={12} md={6} lg={4}>
-                <Card>
-                <CardContent>
-                    <Typography variant="h6" gutterBottom>
-                    Ultimos registros
-                    </Typography>
-                    <List>
-                    <ListItem>
-                        <ListItemText
-                        primary="Control anual"
-                        secondary="Noviembre 5, 2024"
-                        />
-                    </ListItem>
-                    <ListItem>
-                        <ListItemText
-                        primary="Analisis de sangre"
-                        secondary="Octubre 10, 2024"
-                        />
-                    </ListItem>
-                    </List>
-                    <Button variant="outlined" color="primary" fullWidth>
-                    Ver historial completo
-                    </Button>
-                </CardContent>
-                </Card>
-            </Grid2>
+                {/* Medical History */}
+                <Grid2 xs={12} md={6} lg={4}>
+                    <Card>
+                    <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                        Ultimos registros
+                        </Typography>
+                        <List>
+                        <ListItem>
+                            <ListItemText
+                            primary="Control anual"
+                            secondary="Noviembre 5, 2024"
+                            />
+                        </ListItem>
+                        <ListItem>
+                            <ListItemText
+                            primary="Analisis de sangre"
+                            secondary="Octubre 10, 2024"
+                            />
+                        </ListItem>
+                        </List>
+                        <Button variant="outlined" fullWidth>
+                        Ver historial completo
+                        </Button>
+                    </CardContent>
+                    </Card>
+                </Grid2>
 
-            {/* Actions */}
-            <Grid2 xs={12} md={6} lg={4}>
-                <Card>
-                <CardContent>
-                    <Typography variant="h6" gutterBottom>
-                    Acciones
-                    </Typography>
-                    <Button
-                    variant="contained"
-                    color="secondary"
-                    fullWidth
-                    sx={{ mb: 2 }}
-                    onClick={() => handleOpen()}
-                    >
-                    Programar nueva cita
-                    </Button>
-                    <Button
-                    variant="contained"
-                    color="error"
-                    fullWidth
-                    sx={{ mb: 2 }}
-                    >
-                    Cancelar cita
-                    </Button>
-                </CardContent>
-                </Card>
-            </Grid2>
+                {/* Actions */}
+                <Grid2 xs={12} md={6} lg={4}>
+                    <Card>
+                    <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                        Acciones
+                        </Typography>
+                        <Button
+                        variant="contained"
+                        color="secondary"
+                        fullWidth
+                        sx={{ mb: 2 }}
+                        onClick={() => handleOpen()}
+                        >
+                        Programar nueva cita
+                        </Button>
+                        <Button
+                        variant="contained"
+                        color="error"
+                        fullWidth
+                        sx={{ mb: 2 }}
+                        >
+                        Cancelar cita
+                        </Button>
+                    </CardContent>
+                    </Card>
+                </Grid2>
             </Grid2>
         </Container>
       {open && <AppointmentModal handleOpen={handleOpen} handleClose={handleClose}/>}

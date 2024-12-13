@@ -1,61 +1,84 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { FormControl, InputLabel, MenuItem, Select, TextareaAutosize, TextField } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers';
-import { useSelector } from '../../common/hooks/hooks.js';
+import { useDispatch, useSelector, useState } from '../../common/hooks/hooks.js';
 import { format } from 'date-fns';
+import { REGISTER_APPOINTMENT } from '../../../settings.js';
+import { DatePicker } from '@mui/x-date-pickers';
+import { fetchUserAppointments } from '../../../framework/store/appointment/appointmentSlice.js';
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '80%',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: 3,
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '80%',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+    borderRadius: 3,
 };
 
 const AppointmentModal = ({ handleClose }) => {
 
-  const user = useSelector((state) => state.user.user)
+const user = useSelector((state) => state.user.user)
+const dispatch = useDispatch()
 
-  const [formData, setFormData] = React.useState({
+const [formData, setFormData] = useState({
+    doctorId: null,
+    patientId: user.id,
     especialidad: '',
-    rangeHours: '',
+    hours: '',
+    date: null,
     description: '',
-  });
-  
+    status: 'pending'
+});
 
-  const handleChange = (e) => {
+
+const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevData => ({
-      ...prevData,
-      [name]: value,
+    ...prevData,
+    [name]: value,
     }));
-  };
+};
 
-  const handleDateChange = (date) => {
+const handleDateChange = (date) => {
     setFormData(prevData => ({
-      ...prevData,
-      birthDate: date,
+        ...prevData,
+        date,
     }));
-  };
+};
 
-  const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-  };
+    try {
+    const response = await fetch(`${ REGISTER_APPOINTMENT }`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+    });
+    const data = await response.json();
+    dispatch(fetchUserAppointments(user.id))
+    if (!response.ok) {
+        throw new Error("Error en enviar la solicitud. Por favor intenta nuevamente.");
+    }
 
-  const date = new Date("2024-12-01T03:00:00.000Z");
-  const formattedDate = format(date, "dd-MM-yyyy");
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Error en el registro de la cita. Por favor intenta nuevamente.");
+    }
+};
 
-  return (
+const date = new Date("2024-12-01T03:00:00.000Z");
+const formattedDate = format(date, "dd-MM-yyyy");
+
+return (
     <Modal open={open} onClose={handleClose} aria-labelledby="modal-title" aria-describedby="modal-description">
         <Box sx={style}>
             <Box component="form" onSubmit={handleSubmit}>
@@ -83,11 +106,10 @@ const AppointmentModal = ({ handleClose }) => {
                         <MenuItem value="nutricionista">Nutricionista</MenuItem>
                     </Select>
                 </FormControl>
-
                 <FormControl fullWidth margin="normal">
                     <DatePicker
-                    label="Fecha de nacimiento"
-                    value={formData.birthDate}
+                    label="Fecha de la cita"
+                    value={formData.date}
                     onChange={handleDateChange}
                     required
                     renderInput={(props) => <TextField {...props} />}
@@ -98,9 +120,9 @@ const AppointmentModal = ({ handleClose }) => {
                     <InputLabel id="rango-horario-label">Rango Horario</InputLabel>
                     <Select
                     labelId="rango-horario-label"
-                    value={formData.rangeHours}
+                    value={formData.hours}
                     onChange={handleChange}
-                    name="rangeHours"
+                    name="hours"
                     label="Rango Horario"
                     required
                     >
@@ -122,14 +144,14 @@ const AppointmentModal = ({ handleClose }) => {
                 </FormControl>
 
                 <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 3 }}>
-                    <Button type="submit" variant="contained" color="primary" sx={{ width: '50%' }}>
+                    <Button type="submit" sx={{ width: '50%' }}>
                     Solicitar
                     </Button>
                 </Box>
             </Box>
         </Box>
     </Modal>
-  );
+);
 }
 
 export { AppointmentModal }

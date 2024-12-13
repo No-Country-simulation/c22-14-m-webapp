@@ -26,8 +26,11 @@ const NavBarPublic = () => (
 
 const NavBarPatient = () => (
   <NavBarBase
+  links={[
+    { label: "Perfil", to: "/me" },
+    // { label: "Nosotros", to: "/#about-us" },
+  ]}
     profileOptions={[
-      { label: "Nosotros", to: "/#about-us" },
       { label: "Cerrar Sesión", to: "/logout" },
     ]}
   />

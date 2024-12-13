@@ -10,7 +10,6 @@ import { useSelector } from '../bundles/common/hooks/hooks.js';
 const App = () => {
     const user = useSelector((state) => state.user.user)
     const role = user?.role
-    console.log("role", role)
     return (
         <ThemeProvider theme={theme}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>

@@ -14,11 +14,11 @@ class RecordRepository{
     async findByPatientId(patientId) {
         return await this.recordModel.findAll({
             where: {
-                '$Appoiment.patient_id$': patientId,
+                '$Appointment.patient_id$': patientId,
             },
             include: [
                 {
-                    model: Appoiment,
+                    model: Appointment,
                     required: true,
                     attributes: ['id', 'date', 'status'],
                 }

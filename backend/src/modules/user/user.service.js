@@ -77,7 +77,6 @@ class UserService {
         
         const token = await tokenService.createToken(newUser.id);
         const userInfo = await this.getUserById(newUser.id);
-        console.log("vamossssss", userInfo)
 
         return { userInfo };
     }
