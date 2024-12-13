@@ -1,10 +1,12 @@
 import { AppointmentService } from "./appointment.service.js";
+import { Patient } from "../patient/patient.model.js";
 
 /**
  * The Controller component of the Appointment entity, recieving and retrieving data from the Front-End
  */
 class AppointmentController {
     /**
+     * 
      * Start the Controller component of the Appointment entity
      * @param { AppointmentService } appointmentService 
      */
@@ -61,14 +63,34 @@ class AppointmentController {
      */
     async schedule(req, res) {
         try {
-            console.log("objeto recibido:", req.body);
-            const newAppointment = await this.appointmentService.scheduleAppointment(req.body);
-            res.status(200).json(newAppointment);
+            const patientId = req.params.patient_id; // Obtener el patient_id de la URL
+    
+            // Verificar si el paciente existe en la base de datos
+            const patient = await Patient.findByPk(patientId);
+            if (!patient) {
+                return res.status(404).json({ message: "Paciente no encontrado" });
+            }
+    
+            // Agregar el patient_id al cuerpo de la cita antes de crearla
+            const appointmentData = {
+                ...req.body,
+                patient_id: patientId, // Establecer el patient_id
+            };
+    
+            // Crear la cita
+            const newAppointment = await this.appointmentService.scheduleAppointment(appointmentData);
+    
+            // Devolver la cita junto con el patient_id
+            res.status(200).json({
+                appointment: newAppointment,
+                patient_id: patientId, // Aquí se agrega el patient_id
+            });
         } catch (error) {
             console.error("Error al programar cita:", error);
             res.status(404).json({ message: error.message });
         }
     }
+        
 }
 
 export { AppointmentController };

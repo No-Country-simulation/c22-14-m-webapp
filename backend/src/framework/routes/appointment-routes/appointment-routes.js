@@ -9,7 +9,7 @@ appointmentRoutes.get("/", (req, res) => {appointmentController.getAppointments(
 appointmentRoutes.get('/doctorsEsp', (req, res) => {doctorController.getDoctorBySpecialty(req, res)});
 
 // POST
-appointmentRoutes.post("/schedule", (req, res) => {appointmentController.schedule(req, res)});
+appointmentRoutes.post("/schedule/:patient_id", (req, res) => {appointmentController.schedule(req, res)});
 
 // PATCH
 appointmentRoutes.patch("/:appointment_id/doctor", (req, res) => {appointmentController.assignDoctor(req, res)});
