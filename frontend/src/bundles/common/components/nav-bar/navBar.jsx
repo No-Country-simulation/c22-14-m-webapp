@@ -3,7 +3,7 @@ import { NavBarBase } from "./navBarBase";
 const NavBar = ({ role }) => {
   switch (role) {
     case "admin":
-      return <NavBarAdmin />;
+      return null;
     case "doctor":
       return <NavBarDoctor />;
     case "patient":
@@ -49,17 +49,5 @@ const NavBarDoctor = () => (
   />
 );
 
-const NavBarAdmin = () => (
-  <NavBarBase
-    links={[
-      { label: "Nosotros", to: "/#about-us" },
-      { label: "Servicios", to: "/#services" },
-      { label: "Panel de Administrador", to: "/admin-panel" },
-    ]}
-    profileOptions={[
-      { label: "Cerrar Sesión", to: "/logout" },
-    ]}
-  />
-);
 
 export { NavBar };

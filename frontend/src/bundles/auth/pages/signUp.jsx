@@ -149,7 +149,7 @@ const SignUp = () => {
             if (!response.ok) {
                 throw new Error(data.message);
             }
-            console.log("Registro exitoso:", data.userInfo);
+            console.log("Registro exitoso:", data);
             if (data.token) {
                 localStorage.setItem('token', data.token);
             }

@@ -6,7 +6,8 @@ import { AppRoute } from '../bundles/common/constants/constants';
 import HistoryMedical from '../bundles/home/pages/history-medical';
 import { Home } from '../bundles/home/pages/home';
 import { AppoimentRequest } from '../bundles/auth/pages/appointmentRequest';
-import Patient from '../bundles/patient/pages/patient';
+// import Patient from '../bundles/patient/pages/patient';
+import { UserRoleComponent } from '../bundles/auth/pages/me';
 
 const routes = [
     {
@@ -37,7 +38,7 @@ const routes = [
                 path: AppRoute.ME,
                 element: (
                     <ProtectedRoute>
-                        <Patient />
+                        <UserRoleComponent />
                     </ProtectedRoute>
                 ),
             },

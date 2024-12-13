@@ -5,6 +5,7 @@ import Patient from '../../patient/pages/patient.jsx';
 
 const UserRoleComponent = () => {
     const role = useSelector((state) => state.user.user?.role);
+    console.log("este es mi rol", role)
 
     if (role === 'doctor' || role === 'patient') {
         return <Patient />;

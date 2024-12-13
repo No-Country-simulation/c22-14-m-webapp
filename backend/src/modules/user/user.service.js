@@ -78,7 +78,7 @@ class UserService {
         const token = await tokenService.createToken(newUser.id);
         const userInfo = await this.getUserById(newUser.id);
 
-        return { userInfo };
+        return { userInfo, token };
     }
 
     async loginUser(email, password) {

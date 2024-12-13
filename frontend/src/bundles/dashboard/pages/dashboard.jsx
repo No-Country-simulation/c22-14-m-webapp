@@ -57,7 +57,7 @@ const Dashboard = () => {
     <AppProvider
     navigation={NAVIGATION}
     branding={{
-      logo: <img src="https://w7.pngwing.com/pngs/178/6/png-transparent-playstation-2-playstation-vr-playstation-vita-playstation-3-playstation-4-logo-blue-text-logo.png" alt="VitaMind logo" />,
+      logo: <></>,
       title: 'VitaMind',
     }}
     router={router}
